@@ -1,0 +1,21 @@
+[project]
+name = "image-to-3d-relief"
+dynamic = ["version"]
+authors = [
+    {name = "Marcin Walczak"},
+]
+license = {text = "MIT"}
+dependencies = [
+    "numpy",
+    "Pillow",
+    "fastapi",
+    "uvicorn",
+    "httpx",
+    "python-multipart",
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "src.app.version.__version__"}
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

@@ -1,0 +1,22 @@
+{
+  "filaments": [
+    {
+      "id": "base",
+      "name": "Base White",
+      "rgb": [255, 255, 255],
+      "td_mm": 2.0
+    },
+    {
+      "id": "black",
+      "name": "Matte Black",
+      "rgb": [20, 20, 20],
+      "td_mm": 1.5
+    },
+    {
+      "id": "blue",
+      "name": "Ocean Blue",
+      "rgb": [40, 80, 200],
+      "td_mm": 2.5
+    }
+  ]
+}

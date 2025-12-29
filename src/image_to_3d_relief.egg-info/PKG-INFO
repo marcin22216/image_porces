@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: image-to-3d-relief
+Version: 1.0.0
+Author: Marcin Walczak
+License: MIT
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: Pillow
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: httpx
+Requires-Dist: python-multipart
+Dynamic: license-file

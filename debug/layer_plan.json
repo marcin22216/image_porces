@@ -1,0 +1,334 @@
+{
+  "layers": [
+    {
+      "layer_index": 0,
+      "z_mm": 0.0,
+      "filament_id": "white"
+    },
+    {
+      "layer_index": 1,
+      "z_mm": 0.2,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 2,
+      "z_mm": 0.4,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 3,
+      "z_mm": 0.6000000000000001,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 4,
+      "z_mm": 0.8,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 5,
+      "z_mm": 1.0,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 6,
+      "z_mm": 1.2000000000000002,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 7,
+      "z_mm": 1.4000000000000001,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 8,
+      "z_mm": 1.6,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 9,
+      "z_mm": 1.8,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 10,
+      "z_mm": 2.0,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 11,
+      "z_mm": 2.2,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 12,
+      "z_mm": 2.4000000000000004,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 13,
+      "z_mm": 2.6,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 14,
+      "z_mm": 2.8000000000000003,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 15,
+      "z_mm": 3.0,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 16,
+      "z_mm": 3.2,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 17,
+      "z_mm": 3.4000000000000004,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 18,
+      "z_mm": 3.6,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 19,
+      "z_mm": 3.8000000000000003,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 20,
+      "z_mm": 4.0,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 21,
+      "z_mm": 4.2,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 22,
+      "z_mm": 4.4,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 23,
+      "z_mm": 4.6000000000000005,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 24,
+      "z_mm": 4.800000000000001,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 25,
+      "z_mm": 5.0,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 26,
+      "z_mm": 5.2,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 27,
+      "z_mm": 5.4,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 28,
+      "z_mm": 5.6000000000000005,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 29,
+      "z_mm": 5.800000000000001,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 30,
+      "z_mm": 6.0,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 31,
+      "z_mm": 6.2,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 32,
+      "z_mm": 6.4,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 33,
+      "z_mm": 6.6000000000000005,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 34,
+      "z_mm": 6.800000000000001,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 35,
+      "z_mm": 7.0,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 36,
+      "z_mm": 7.2,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 37,
+      "z_mm": 7.4,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 38,
+      "z_mm": 7.6000000000000005,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 39,
+      "z_mm": 7.800000000000001,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 40,
+      "z_mm": 8.0,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 41,
+      "z_mm": 8.200000000000001,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 42,
+      "z_mm": 8.4,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 43,
+      "z_mm": 8.6,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 44,
+      "z_mm": 8.8,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 45,
+      "z_mm": 9.0,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 46,
+      "z_mm": 9.200000000000001,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 47,
+      "z_mm": 9.4,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 48,
+      "z_mm": 9.600000000000001,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 49,
+      "z_mm": 9.8,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 50,
+      "z_mm": 10.0,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 51,
+      "z_mm": 10.200000000000001,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 52,
+      "z_mm": 10.4,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 53,
+      "z_mm": 10.600000000000001,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 54,
+      "z_mm": 10.8,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 55,
+      "z_mm": 11.0,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 56,
+      "z_mm": 11.200000000000001,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 57,
+      "z_mm": 11.4,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 58,
+      "z_mm": 11.600000000000001,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 59,
+      "z_mm": 11.8,
+      "filament_id": "filamentcolors:3368"
+    },
+    {
+      "layer_index": 60,
+      "z_mm": 12.0,
+      "filament_id": "filamentcolors:2048"
+    },
+    {
+      "layer_index": 61,
+      "z_mm": 12.200000000000001,
+      "filament_id": "filamentcolors:1111"
+    },
+    {
+      "layer_index": 62,
+      "z_mm": 12.4,
+      "filament_id": "filamentcolors:2994"
+    },
+    {
+      "layer_index": 63,
+      "z_mm": 12.600000000000001,
+      "filament_id": "filamentcolors:1719"
+    },
+    {
+      "layer_index": 64,
+      "z_mm": 12.8,
+      "filament_id": "filamentcolors:1509"
+    },
+    {
+      "layer_index": 65,
+      "z_mm": 13.0,
+      "filament_id": "filamentcolors:3368"
+    }
+  ]
+}
