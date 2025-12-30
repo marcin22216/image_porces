@@ -121,7 +121,7 @@ Layer 0 uses the base filament, then each next layer switches as listed in the p
 
 ## Stability & roadmap
 - CLI: stable
-- GUI/Web: planned
+- Web wrapper + /ui: available (preview-only thin wrapper)
 
 ## Project status
 Foundation v1 is complete. Core pipeline, CLI, and the web wrapper are stable.
@@ -140,8 +140,7 @@ Further changes will be delivered as separate phases.
 - Colors do not match the screen: palette is constrained by filament catalog entries, matching uses LAB/RGB approximations, and preview simulates translucency (TD) rather than exact print appearance.
 
 ## Roadmap (short)
-- GUI
-- Live preview
+- UI is available at /ui (preview-only)
 
 ## Optional: FilamentColors.xyz catalog
 You can download a larger filament catalog from FilamentColors.xyz.

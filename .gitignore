@@ -1,0 +1,5 @@
+image-to-3d.venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
