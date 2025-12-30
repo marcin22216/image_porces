@@ -114,6 +114,18 @@ Layer 0 uses the base filament, then each next layer switches as listed in the p
 Foundation v1 is complete. Core pipeline, CLI, and the web wrapper are stable.
 Further changes will be delivered as separate phases.
 
+## User Contract (v1)
+- Inputs: one image file (PNG/JPG recommended); WEB upload limit is 20MB per request; CLI accepts any Pillow-readable image file.
+- Main user parameters: `n_colors` (palette size), `blend_depth` (layer scaling), and output size in mm via `--width-mm` / `--height-mm` (CLI only).
+- Preview does: runs the full preview pipeline and outputs `preview.png` plus debug artifacts; it does not generate STL or colorplan.
+- Bundle does: creates a ZIP with STL, `.colorplan.txt`, preview image, and effective config; it does not create G-code or slicer-specific files.
+- Explicit limitations: no G-code output, no AI/prompt generation, no session storage, and WEB/UI remains a thin wrapper over CLI behavior.
+
+## Common failure modes
+- Preview is slow: CPU-heavy preprocessing (bilateral), segmentation (SLIC), and layer solving run on full-resolution images.
+- Image is rejected: input path is missing or is a directory (CLI), file exceeds 20MB (WEB), or the image cannot be decoded by Pillow.
+- Colors do not match the screen: palette is constrained by filament catalog entries, matching uses LAB/RGB approximations, and preview simulates translucency (TD) rather than exact print appearance.
+
 ## Roadmap (short)
 - GUI
 - Live preview
