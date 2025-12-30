@@ -277,6 +277,25 @@
             </div>
 
             <div class="field" style="margin-top: 14px;">
+              <label>What this UI does / does not do</label>
+              <div class="hint">Does:</div>
+              <ul class="hint-list">
+                <li>Upload image and call POST /preview</li>
+                <li>Show request summary (fields included/omitted)</li>
+                <li>Show status (Idle/Rendering/Done/Error) + error message</li>
+                <li>Show preview image (PNG)</li>
+              </ul>
+              <div class="hint" style="margin-top: 8px;">Does not:</div>
+              <ul class="hint-list">
+                <li>Generate STL</li>
+                <li>Generate colorplan.txt</li>
+                <li>Run /bundle</li>
+                <li>Store sessions or history</li>
+                <li>Modify filament catalog / sequence / allowed filaments</li>
+              </ul>
+            </div>
+
+            <div class="field" style="margin-top: 14px;">
               <label>Manual test checklist</label>
               <ul class="hint-list">
                 <li>Action: click Generate preview with no file. Expect: Error + "No file selected".</li>

@@ -252,3 +252,7 @@ Tests: PYTHONPATH=. python3 -m pytest -q → PASS
 ## Iteration 20 — UI status states copy
 Status: DONE
 Tests: PYTHONPATH=. python3 -m pytest -q → PASS
+
+## Iteration 21 — UI scope guardrails copy
+Status: DONE
+Tests: PYTHONPATH=. python3 -m pytest -q → PASS

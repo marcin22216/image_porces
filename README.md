@@ -66,6 +66,8 @@ or
 The status panel shows the selected file, current parameter values, and the request state.
 Idle means no request is running, Rendering means a request is in progress, Done means preview is ready, and Error indicates failure.
 The UI includes a Status states (how to interpret) block that summarizes when each state appears.
+/ui is a thin wrapper around POST /preview only.
+It does not run /bundle or generate STL/colorplan; use bundle/CLI for those outputs.
 Error means the preview request failed and no STL or colorplan is generated.
 Details are visible in the Status panel message.
 The status panel also shows a Request summary with endpoint, method, payload, and the current field values.
