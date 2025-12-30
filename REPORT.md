@@ -260,3 +260,5 @@ Tests: PYTHONPATH=. python3 -m pytest -q → PASS
 ## Iteration 22 — README status alignment
 Status: DONE
 Tests: PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. python3 -m pytest -q → PASS
+
+UI: fixed stuck Rendering state by handling AbortError and ensuring latest-request-only state updates.

@@ -21,7 +21,7 @@
   let currentPreviewUrl = null;
   let debounceTimer = null;
   let activeController = null;
-  let activeRequestId = 0;
+  let requestSeq = 0;
   let lastCompletedSnapshot = null;
 
   const formatBytes = (bytes) => {
@@ -166,10 +166,10 @@
     }
 
     cancelActiveRequest();
+    requestSeq += 1;
+    const localSeq = requestSeq;
     const controller = new AbortController();
     activeController = controller;
-    const requestId = activeRequestId + 1;
-    activeRequestId = requestId;
     const requestSnapshot = captureSnapshot();
     setBusy(true);
     setStatusState("Rendering...");
@@ -181,7 +181,7 @@
         signal: controller.signal,
       });
 
-      if (requestId !== activeRequestId) {
+      if (localSeq !== requestSeq) {
         return;
       }
       if (!response.ok) {
@@ -197,7 +197,7 @@
       }
 
       const blob = await response.blob();
-      if (requestId !== activeRequestId) {
+      if (localSeq !== requestSeq) {
         return;
       }
       if (currentPreviewUrl) {
@@ -213,6 +213,13 @@
       setStatus("Preview ready.");
     } catch (error) {
       if (error.name === "AbortError") {
+        if (localSeq === requestSeq) {
+          setStatusState("Idle");
+          setStatus("");
+        }
+        return;
+      }
+      if (localSeq !== requestSeq) {
         return;
       }
       setStatus("Network error", true);
@@ -220,7 +227,7 @@
       setStatusUpdated();
       updateFreshness();
     } finally {
-      if (requestId === activeRequestId) {
+      if (localSeq === requestSeq) {
         setBusy(false);
         activeController = null;
       }
