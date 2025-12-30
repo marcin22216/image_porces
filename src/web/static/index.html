@@ -262,6 +262,18 @@
                 The UI does not retry or use fallbacks.
               </p>
             </div>
+
+            <div class="field" style="margin-top: 14px;">
+              <label>Manual test checklist</label>
+              <ul class="hint-list">
+                <li>Action: click Generate preview with no file. Expect: Error + "No file selected".</li>
+                <li>Action: select a small image, click Generate preview. Expect: Rendering... then Done + preview visible.</li>
+                <li>Action: set n_colors and wait. Expect: Rendering after debounce, then Done.</li>
+                <li>Action: set blend_depth and wait. Expect: Rendering after debounce, then Done.</li>
+                <li>Action: stop the server, click Preview. Expect: Error + Network error.</li>
+                <li>Action: change file/params, check Request summary. Expect: fields show current values.</li>
+              </ul>
+            </div>
           </form>
         </section>
 

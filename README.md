@@ -69,6 +69,7 @@ Error means the preview request failed and no STL or colorplan is generated.
 Details are visible in the Status panel message.
 The status panel also shows a Request summary with endpoint, method, payload, and the current field values.
 Use it to verify exactly what /ui sends without DevTools.
+The /ui screen includes a manual test checklist with action/expect items for quick verification.
 For repeatable UI checks, see `manual_tests/README.md`.
 
 Preview:
