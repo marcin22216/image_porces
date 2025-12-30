@@ -386,3 +386,9 @@ Status: DONE
 Tests: python3 -m pytest -q → PASS
 
 Migration: moved palette mapping into hueforge/mapping and replaced src/ops/palette_mapping with a shim; added equivalence test.
+
+## Iteration 28 — Migrate height model modules to hueforge/geometry
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved height_map, layers_to_mm, and add_border into hueforge/geometry and replaced legacy src/ops modules with shims; added equivalence tests.
