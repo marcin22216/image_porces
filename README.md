@@ -110,6 +110,10 @@ Layer 0 uses the base filament, then each next layer switches as listed in the p
 - CLI: stable
 - GUI/Web: planned
 
+## Project status
+Foundation v1 is complete. Core pipeline, CLI, and the web wrapper are stable.
+Further changes will be delivered as separate phases.
+
 ## Roadmap (short)
 - GUI
 - Live preview

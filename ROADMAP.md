@@ -1,5 +1,10 @@
 # ROADMAP
 
+# Foundation v1 — CLOSED
+Foundation v1 covered the core 2D->3D pipeline, CLI commands, and the FastAPI web wrapper with UI live preview.
+The phase is formally closed after the audit snapshot (AUDIT_REPORT_v1_2025-12-30.md).
+Further work will be tracked as separate phases.
+
 - [x] 01 Project skeleton & test runner
 - [x] 02 Image loading/saving
 - [x] 03 Edge-preserving preprocessing
