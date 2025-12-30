@@ -41,6 +41,7 @@ def run_bundle(
         config_path = temp_path / "config.effective.json"
         config_path.write_text(json.dumps(effective, indent=2), encoding="utf-8")
 
+        layer_stls = sorted(temp_path.glob("layer_*.stl"))
         required = [
             output_stl,
             output_stl.with_suffix(".colorplan.txt"),
@@ -50,6 +51,7 @@ def run_bundle(
             debug_path / "layer_plan.json",
             config_path,
         ]
+        required.extend(layer_stls)
 
         output_path = Path(output_zip)
         output_path.parent.mkdir(parents=True, exist_ok=True)

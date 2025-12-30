@@ -118,6 +118,27 @@ def run_pipeline(
             layer_sequence_ids,
             total_layers,
         )
+        per_layer = []
+        base_mm = 0.32
+        step_mm = 0.08
+        output_dir = Path(output_path).parent
+        for layer_index in range(1, max_layers + 1):
+            layer_height = base_mm + layer_index * step_mm
+            layer_map = np.where(height_layers >= layer_index, layer_height, 0.0).astype(
+                np.float32
+            )
+            layer_mesh = height_map_to_mesh(layer_map, mm_per_pixel=mm_per_pixel)
+            layer_name = f"layer_{layer_index:02d}.stl"
+            _write_ascii_stl(layer_mesh, str(output_dir / layer_name))
+            per_layer.append(
+                {
+                    "layer": layer_index,
+                    "stl": layer_name,
+                    "filament": layer_plan["layers"][layer_index]["filament_id"],
+                }
+            )
+        if per_layer:
+            layer_plan["stl_layers"] = per_layer
 
     if debug_dir:
         preview = _preview_image_by_label(
@@ -301,16 +322,60 @@ def _write_colorplan(
     layer_sequence_ids: List[str],
     total_layers: int,
 ) -> None:
+    base_layer_mm = 0.32
+    color_layer_mm = 0.08
+    max_layers = 7
     catalog_path = Path(print_config.get("filament_catalog", "filaments/default_catalog.json"))
     catalog = load_catalog(catalog_path)
-    plan = _build_colorplan(
-        base_filament_id,
-        layer_sequence_ids,
-        base_layer_mm,
-        color_layer_mm,
-        catalog,
-        total_layers,
-    )
+    if not layer_sequence_ids:
+        layer_sequence_ids = [_fallback_filament_id(catalog)]
+    base_filament_id = layer_sequence_ids[0]
+    if len(layer_sequence_ids) == 1:
+        for item in catalog.get("filaments", []):
+            candidate = str(item.get("id", "")).strip()
+            if not candidate or candidate == base_filament_id or candidate == "white":
+                continue
+            layer_sequence_ids = [base_filament_id, candidate]
+            break
+    if total_layers < 2:
+        total_layers = 2
+    total_layers = min(total_layers, max_layers + 1, len(layer_sequence_ids) + 1)
+    if total_layers < 1:
+        total_layers = 1
+
+    layers = []
+    for idx in range(total_layers):
+        if idx == 0:
+            filament_id = base_filament_id
+        else:
+            seq_index = idx
+            if seq_index >= len(layer_sequence_ids):
+                seq_index = len(layer_sequence_ids) - 1
+            filament_id = layer_sequence_ids[seq_index]
+        layers.append(
+            {
+                "layer_index": idx,
+                "z_mm": base_layer_mm + idx * color_layer_mm,
+                "filament_id": filament_id,
+            }
+        )
+
+    start = layers[0]
+    changes: List[Dict[str, Any]] = []
+    current_id = start["filament_id"]
+    for layer in layers[1:]:
+        if layer["filament_id"] == current_id:
+            continue
+        changes.append(layer)
+        current_id = layer["filament_id"]
+
+    all_layers = [start] + changes
+    total_layers = 1 + max(item["layer_index"] for item in all_layers)
+    plan = {
+        "total_layers": total_layers,
+        "start": start,
+        "changes": changes,
+    }
     export_colorplan_txt(Path(output_path), plan, catalog, base_layer_mm, color_layer_mm)
 
 
@@ -365,10 +430,19 @@ def _layer_plan(
     base_layer_mm: float,
     color_layer_mm: float,
 ) -> Dict[str, Any]:
+    base_mm = 0.32
+    step_mm = 0.08
+    max_layers = 7
+
     if total_layers < 2:
         total_layers = 2
     if not layer_sequence_ids:
         layer_sequence_ids = [base_filament_id]
+    if base_filament_id not in layer_sequence_ids:
+        base_filament_id = layer_sequence_ids[0]
+    if total_layers > max_layers + 1:
+        total_layers = max_layers + 1
+
     layers = []
     for idx in range(total_layers):
         if idx == 0:
@@ -378,7 +452,7 @@ def _layer_plan(
         layers.append(
             {
                 "layer_index": idx,
-                "z_mm": base_layer_mm + idx * color_layer_mm,
+                "z_mm": base_mm + idx * step_mm,
                 "filament_id": filament_id,
             }
         )

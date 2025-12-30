@@ -3,3 +3,10 @@ image-to-3d.venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+debug/
+bundle.zip
+bundle_out/
+result.zip
+preview_out/
+run_out/
+*.egg-info/

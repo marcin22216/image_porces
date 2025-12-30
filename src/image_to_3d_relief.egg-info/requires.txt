@@ -1,6 +1,0 @@
-numpy
-Pillow
-fastapi
-uvicorn
-httpx
-python-multipart

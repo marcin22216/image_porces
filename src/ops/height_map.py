@@ -30,8 +30,37 @@ def _validate_labels(labels: np.ndarray) -> None:
 
 
 def _layers_by_index(labels: np.ndarray, scale: float) -> np.ndarray:
-    layers = np.rint(labels.astype(np.float32) * scale).astype(np.int32)
-    layers[layers < 0] = 0
+    unique_labels = np.unique(labels)
+    layers = np.zeros(labels.shape, dtype=np.int32)
+    if unique_labels.size == 0:
+        return layers
+
+    if 0 in unique_labels:
+        mapped_labels = unique_labels[unique_labels != 0]
+    else:
+        mapped_labels = unique_labels
+
+    count = mapped_labels.size
+    if count == 0:
+        return layers
+
+    max_layers = int(round(7 * float(scale)))
+    if max_layers < 1:
+        return layers
+    if max_layers > 7:
+        max_layers = 7
+
+    target_max = min(max_layers, count)
+    if count <= target_max:
+        for idx, label in enumerate(mapped_labels, start=1):
+            layers[labels == label] = idx
+    else:
+        denom = count - 1
+        for idx, label in enumerate(mapped_labels):
+            layer = 1 + int(round(idx * (target_max - 1) / denom))
+            if layer > target_max:
+                layer = target_max
+            layers[labels == label] = layer
     return layers
 
 

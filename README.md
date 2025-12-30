@@ -6,6 +6,37 @@ This tool turns a normal image into a multilayer 3D print: an STL file plus a si
 ## What problem does it solve?
 With multi-color filament, you can print a relief where color and light depth come from stacked layers. The preview shows how translucency might look, and the output gives you a basic plan for changing filament at each layer.
 
+## Direction (Claude plan) and migration status
+Target direction: a modular HueForge-style codebase with clear module boundaries and testable units.
+
+Target package layout (planned):
+- hueforge/core: config, image loading, exceptions
+- hueforge/preprocessing: resizing, linearization, filters, analysis
+- hueforge/palette: palette management, transmission, calibration
+- hueforge/gamut: gamut generation, KD-tree lookup, optimization, cache
+- hueforge/mapping: pixel mapping, dithering, smoothing, edge handling
+- hueforge/geometry: height maps, mesh generation, layer stacking
+- hueforge/export: STL writers, multi-STL export, metadata, preview
+- hueforge/physics: light simulation, Beer-Lambert, mixing
+- hueforge/utils: validators, math helpers, logging
+
+Current repo layout (legacy v1, still active):
+- src/app: CLI and pipeline orchestration
+- src/ops: image preprocessing + segmentation operations
+- src/solver: layer recipe solving for preview
+- src/geom: mesh generation
+- src/print: colorplan + filament catalog tools
+- src/sim: TD-based preview
+- src/web: thin UI wrapper
+
+Migration note: legacy CLI remains the entry point while the HueForge-style layout is introduced incrementally. Documentation below separates legacy behavior from target architecture.
+
+## Docs
+- `docs/reference/hueforge_documentation.md` — intended HueForge-like behavior (conceptual).
+- `docs/reference/hueforge_technical_process.md` — step-by-step technical process (conceptual).
+- `docs/MIGRATION.md` — mapping from legacy `src/` to target `hueforge/`.
+- `docs/legacy/STRUKTURA.md` — legacy tree snapshot.
+
 ## Quick start (5 minutes)
 Installation:
 1) Create a virtual environment (optional) and activate it.
@@ -120,12 +151,14 @@ Layer 0 uses the base filament, then each next layer switches as listed in the p
 - The colorplan is a global layer plan (not per-region yet).
 
 ## Stability & roadmap
-- CLI: stable
+- Legacy CLI: stable (v1 pipeline)
 - Web wrapper + /ui: available (preview-only thin wrapper)
+- Architecture migration to Claude plan: in progress
 
 ## Project status
 Foundation v1 is complete. Core pipeline, CLI, and the web wrapper are stable.
-Further changes will be delivered as separate phases.
+The next phase is a structural migration to the Claude plan modules without breaking the CLI.
+Docs are being updated first to avoid confusion between legacy and target behavior.
 
 ## User Contract (v1)
 - Inputs: one image file (PNG/JPG recommended); WEB upload limit is 20MB per request; CLI accepts any Pillow-readable image file.
@@ -141,6 +174,7 @@ Further changes will be delivered as separate phases.
 
 ## Roadmap (short)
 - UI is available at /ui (preview-only)
+- Architecture migration (Claude plan) is in progress
 
 ## Optional: FilamentColors.xyz catalog
 You can download a larger filament catalog from FilamentColors.xyz.
