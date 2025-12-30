@@ -185,6 +185,9 @@ Sync command:
 
 This creates `data/filament_catalog_filamentcolors.json`. Use a preset that points to it (for example `presets/default_4_auto.json`).
 
+HueForge library TD sync (updates `td_mm` only):
+`python3 -m src.tools.hueforge_library_sync --hueforge hueforge_filament_library.json --target filaments/default_catalog.json --out filaments/default_catalog.synced.json`
+
 ## Troubleshooting
 - “Input not found”: check the path passed to `--in`.
 - “Catalog not found”: run `python3 -m src.tools.filamentcolors_sync`.

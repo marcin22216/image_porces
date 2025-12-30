@@ -23,6 +23,11 @@ The legacy CLI remains the source of truth until the migration is complete.
 - No deletion of legacy modules without explicit approval.
 - No new dependencies unless required by a specific module.
 
+## HueForge library catalog input
+`hueforge.print.filaments.load_catalog` now accepts the HueForge filament library format
+(metadata + entries with manufacturer/type/color/hexCode/td). The adapter preserves `td`
+values 1:1 as `td_mm` and converts `hexCode` to `rgb` without normalization.
+
 ## Pending cleanup tasks
 - Unify `tools/` (root scripts) vs `src/tools` (CLI helpers) once compatibility shims are defined.
 - Move tests into `tests/unit` and `tests/integration` after updating repo-root path logic.

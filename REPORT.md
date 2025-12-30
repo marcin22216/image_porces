@@ -452,3 +452,15 @@ Status: DONE
 Tests: python3 -m pytest -q → PASS
 
 Migration: moved src/color/color_distance.py to hueforge/utils/color_distance.py, updated filament_assignment imports, and replaced src/color/color_distance with a shim; added equivalence tests.
+
+## Iteration 39 — Add HueForge filament library adapter (td preserved 1:1)
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Data adapter: load_catalog now recognizes HueForge library JSON (metadata + entries), maps hexCode → rgb and td → td_mm 1:1, validates inputs, and keeps legacy catalog support; added loader tests and fixture.
+
+## Iteration 40 — Add HueForge library sync tool (td preserved 1:1)
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Tooling: added src/tools/hueforge_library_sync.py to update td_mm in default_catalog.json from HueForge library JSON without changing other fields; added sync tests and README note.
