@@ -213,3 +213,7 @@ Tests: python3 -m pytest -q → PASS
 ## Iteration 11 — Web UI thin wrapper
 Status: DONE
 Tests: PYTHONPATH=. python3 -m pytest -q → PASS
+
+## Iteration 12 — UI live preview (debounce)
+Status: DONE
+Tests: PYTHONPATH=. python3 -m pytest -q → PASS

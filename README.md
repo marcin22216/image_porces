@@ -62,6 +62,7 @@ or
 2) Open:
    `http://127.0.0.1:8000/ui`
 3) Upload an image, set `n_colors` and `blend_depth` if needed, then click Generate preview.
+4) Adjusting `n_colors` or `blend_depth` triggers live preview after a short debounce.
 
 Preview:
 `curl -F "file=@examples/input.png" -F "catalog=data/filament_catalog_filamentcolors.json" http://127.0.0.1:8000/preview --output preview.png`

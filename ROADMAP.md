@@ -37,6 +37,7 @@
 - [x] LAB distance (RGB->LAB fallback)
 - [x] Brand preset generator
 - [x] FastAPI web wrapper
+- [x] UI live preview (debounce)
 - [x] CLI v1 release prep
 - [x] Examples + license metadata
 - [x] Makefile quick commands
