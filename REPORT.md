@@ -217,3 +217,5 @@ Tests: PYTHONPATH=. python3 -m pytest -q → PASS
 ## Iteration 12 — UI live preview (debounce)
 Status: DONE
 Tests: PYTHONPATH=. python3 -m pytest -q → PASS
+
+Audit Snapshot v1 created: AUDIT_REPORT_v1_2025-12-30.md
