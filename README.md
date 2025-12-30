@@ -65,6 +65,7 @@ or
 4) Adjusting `n_colors` or `blend_depth` triggers live preview after a short debounce.
 The status panel shows the selected file, current parameter values, and the request state.
 Idle means no request is running, Rendering means a request is in progress, Done means preview is ready, and Error indicates failure.
+The UI includes a Status states (how to interpret) block that summarizes when each state appears.
 Error means the preview request failed and no STL or colorplan is generated.
 Details are visible in the Status panel message.
 The status panel also shows a Request summary with endpoint, method, payload, and the current field values.

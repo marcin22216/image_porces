@@ -264,6 +264,19 @@
             </div>
 
             <div class="field" style="margin-top: 14px;">
+              <label>Status states (how to interpret)</label>
+              <ul class="hint-list">
+                <li>Idle: no active request; preview may be empty or previous.</li>
+                <li>Rendering: /preview request in progress; UI may abort a previous request if inputs change.</li>
+                <li>Done: last request succeeded; preview matches the request shown in Last updated.</li>
+                <li>Error: last request failed; the error message is shown in status.</li>
+              </ul>
+              <p class="hint" style="margin-top: 8px;">
+                Changing n_colors or blend_depth triggers live preview automatically after a short debounce.
+              </p>
+            </div>
+
+            <div class="field" style="margin-top: 14px;">
               <label>Manual test checklist</label>
               <ul class="hint-list">
                 <li>Action: click Generate preview with no file. Expect: Error + "No file selected".</li>

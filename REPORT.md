@@ -248,3 +248,7 @@ Tests: PYTHONPATH=. python3 -m pytest -q → PASS
 ## Iteration 19 — UI payload details
 Status: DONE
 Tests: PYTHONPATH=. python3 -m pytest -q → PASS
+
+## Iteration 20 — UI status states copy
+Status: DONE
+Tests: PYTHONPATH=. python3 -m pytest -q → PASS
