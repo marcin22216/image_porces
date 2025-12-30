@@ -9,7 +9,7 @@ Further work will be tracked as separate phases.
 - [x] Docs aligned to Claude plan (README + HueForge docs)
 - [x] Docs relocated + repo hygiene (docs/, gitignore, artifacts removed)
 - [x] Scaffold hueforge/ package layout with minimal shims
-- [ ] Migrate preprocessing modules (scale, preprocess, segment, merge)
+- [x] Migrate preprocessing modules (scale, preprocess, segment, merge)
 - [ ] Migrate palette + gamut + mapping modules
 - [ ] Migrate geometry + export modules (multi-STL, metadata)
 - [ ] Update tests to new package layout

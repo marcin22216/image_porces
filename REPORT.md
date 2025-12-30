@@ -374,3 +374,15 @@ Status: DONE
 Tests: python3 -m pytest -q → PASS
 
 Scaffold: added hueforge/ package layout and minimal shims for scale, mesh, and colorplan; added import test.
+
+## Iteration 26 — Migrate preprocessing modules to hueforge/preprocessing
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved scale/preprocess/segment/merge implementations into hueforge/preprocessing and replaced legacy src/ops modules with shims.
+
+## Iteration 27 — Migrate palette mapping to hueforge/mapping
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved palette mapping into hueforge/mapping and replaced src/ops/palette_mapping with a shim; added equivalence test.
