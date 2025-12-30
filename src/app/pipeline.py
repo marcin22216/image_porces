@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -73,16 +74,31 @@ def run_pipeline(
     ]
     palette_colors = np.asarray(assigned_palette, dtype=np.uint8)
     paletted = map_palette(preprocessed, palette_colors, **palette_config)
-    height_layers = generate_height_map(merged_labels, **preset["height_map"])
+    height_mode = preset.get("height_map", {}).get("mode", "by_index")
     base_layer_mm = float(print_config.get("base_layer_mm", 0.0))
     color_layer_mm = float(print_config.get("color_layer_mm", 0.2))
     blend_depth = float(print_config.get("blend_depth", 1.0))
     if blend_depth <= 0:
         raise ValueError("blend_depth must be > 0")
-    height_layers = np.rint(height_layers.astype(np.float32) * blend_depth).astype(
-        np.int32
-    )
-    height_layers[height_layers < 0] = 0
+    if height_mode == "optical_hueforge":
+        max_thickness_mm = print_config.get("max_thickness_mm")
+        if max_thickness_mm is None:
+            raise ValueError("print.max_thickness_mm is required for optical_hueforge")
+        height_map = generate_height_map(
+            preprocessed,
+            mode="optical_hueforge",
+            image_rgb=preprocessed,
+            optical=preset.get("optical", {}),
+            catalog=catalog,
+            max_thickness_mm=max_thickness_mm,
+        )
+        height_layers = _height_mm_to_layers(height_map, color_layer_mm)
+    else:
+        height_layers = generate_height_map(merged_labels, **preset["height_map"])
+        height_layers = np.rint(height_layers.astype(np.float32) * blend_depth).astype(
+            np.int32
+        )
+        height_layers[height_layers < 0] = 0
     base_rgb_by_label = _mean_color_by_label(preprocessed, merged_labels)
     layers_by_label = solve_layers_by_label(
         merged_labels,
@@ -92,53 +108,83 @@ def run_pipeline(
         color_layer_mm,
         max_layers=int(round(blend_depth)),
     )
-    height_map = layers_to_mm(height_layers, base_layer_mm, color_layer_mm)
+    if height_mode != "optical_hueforge":
+        height_map = layers_to_mm(height_layers, base_layer_mm, color_layer_mm)
     border_mm = float(print_config.get("border_mm", 0.0))
     base_height_mm = float(print_config.get("base_height_mm", base_layer_mm))
     height_map = add_border(height_map, border_mm, mm_per_pixel, base_height_mm)
     max_layers = int(height_layers.max()) if height_layers.size else 0
-    total_layers = max_layers + 1
     base_filament_id = str(print_config.get("base_filament_id", "white"))
     sequence_mode = str(print_config.get("sequence_mode", "auto_palette"))
     manual_sequence = print_config.get("layer_sequence_ids", [])
-    if sequence_mode == "manual":
-        layer_sequence_ids = [str(item) for item in manual_sequence]
+    if height_mode == "optical_hueforge":
+        stack_ids, thresholds = _load_optical_stack(preset.get("optical", {}))
+        base_filament_id = stack_ids[0]
+        layer_sequence_ids = stack_ids
+        total_layers = _total_layers_from_thresholds(
+            thresholds, color_layer_mm, rounding="ceil"
+        )
+        layer_plan = _layer_plan_optical(
+            stack_ids, thresholds, total_layers, base_layer_mm, color_layer_mm
+        )
     else:
-        layer_sequence_ids = _sequence_from_assignment(assigned, len(suggested_palette))
-    layer_plan = _layer_plan(base_filament_id, layer_sequence_ids, total_layers, base_layer_mm, color_layer_mm)
-    if mode != "preview":
-        mesh = height_map_to_mesh(height_map, mm_per_pixel=mm_per_pixel)
-        _write_ascii_stl(mesh, output_path)
-        _write_colorplan(
-            output_path,
-            print_config,
-            base_layer_mm,
-            color_layer_mm,
+        if sequence_mode == "manual":
+            layer_sequence_ids = [str(item) for item in manual_sequence]
+        else:
+            layer_sequence_ids = _sequence_from_assignment(
+                assigned, len(suggested_palette)
+            )
+        total_layers = max_layers + 1
+        layer_plan = _layer_plan(
             base_filament_id,
             layer_sequence_ids,
             total_layers,
+            base_layer_mm,
+            color_layer_mm,
         )
-        per_layer = []
-        base_mm = 0.32
-        step_mm = 0.08
-        output_dir = Path(output_path).parent
-        for layer_index in range(1, max_layers + 1):
-            layer_height = base_mm + layer_index * step_mm
-            layer_map = np.where(height_layers >= layer_index, layer_height, 0.0).astype(
-                np.float32
+    if mode != "preview":
+        mesh = height_map_to_mesh(height_map, mm_per_pixel=mm_per_pixel)
+        _write_ascii_stl(mesh, output_path)
+        if height_mode == "optical_hueforge":
+            _write_colorplan_optical(
+                output_path,
+                print_config,
+                stack_ids,
+                thresholds,
+                base_layer_mm,
+                color_layer_mm,
             )
-            layer_mesh = height_map_to_mesh(layer_map, mm_per_pixel=mm_per_pixel)
-            layer_name = f"layer_{layer_index:02d}.stl"
-            _write_ascii_stl(layer_mesh, str(output_dir / layer_name))
-            per_layer.append(
-                {
-                    "layer": layer_index,
-                    "stl": layer_name,
-                    "filament": layer_plan["layers"][layer_index]["filament_id"],
-                }
+        else:
+            _write_colorplan(
+                output_path,
+                print_config,
+                base_layer_mm,
+                color_layer_mm,
+                base_filament_id,
+                layer_sequence_ids,
+                total_layers,
             )
-        if per_layer:
-            layer_plan["stl_layers"] = per_layer
+            per_layer = []
+            base_mm = 0.32
+            step_mm = 0.08
+            output_dir = Path(output_path).parent
+            for layer_index in range(1, max_layers + 1):
+                layer_height = base_mm + layer_index * step_mm
+                layer_map = np.where(
+                    height_layers >= layer_index, layer_height, 0.0
+                ).astype(np.float32)
+                layer_mesh = height_map_to_mesh(layer_map, mm_per_pixel=mm_per_pixel)
+                layer_name = f"layer_{layer_index:02d}.stl"
+                _write_ascii_stl(layer_mesh, str(output_dir / layer_name))
+                per_layer.append(
+                    {
+                        "layer": layer_index,
+                        "stl": layer_name,
+                        "filament": layer_plan["layers"][layer_index]["filament_id"],
+                    }
+                )
+            if per_layer:
+                layer_plan["stl_layers"] = per_layer
 
     if debug_dir:
         preview = _preview_image_by_label(
@@ -457,6 +503,133 @@ def _layer_plan(
             }
         )
     return {"layers": layers}
+
+
+def _height_mm_to_layers(height_map: np.ndarray, layer_height_mm: float) -> np.ndarray:
+    if layer_height_mm <= 0:
+        raise ValueError("color_layer_mm must be > 0")
+    layers = np.floor(height_map / float(layer_height_mm) + 1e-6).astype(np.int32)
+    layers[layers < 0] = 0
+    return layers
+
+
+def _load_optical_stack(optical: Dict[str, Any]) -> Tuple[List[str], List[float]]:
+    stack_ids = optical.get("stack_filament_ids")
+    thresholds = optical.get("stack_thresholds_mm")
+    if not isinstance(stack_ids, list) or not stack_ids:
+        raise ValueError("optical.stack_filament_ids must be non-empty list")
+    if not isinstance(thresholds, list) or not thresholds:
+        raise ValueError("optical.stack_thresholds_mm must be non-empty list")
+    if len(stack_ids) != len(thresholds):
+        raise ValueError("optical stack ids and thresholds must match length")
+    return [str(item) for item in stack_ids], [float(item) for item in thresholds]
+
+
+def _total_layers_from_thresholds(
+    thresholds: List[float], layer_height_mm: float, rounding: str
+) -> int:
+    indices = _thresholds_to_layer_indices(thresholds, layer_height_mm, rounding)
+    if not indices:
+        return 1
+    return max(indices) + 1
+
+
+def _thresholds_to_layer_indices(
+    thresholds: List[float], layer_height_mm: float, rounding: str
+) -> List[int]:
+    if layer_height_mm <= 0:
+        raise ValueError("color_layer_mm must be > 0")
+    indices: List[int] = []
+    for threshold in thresholds:
+        ratio = threshold / layer_height_mm
+        if rounding == "ceil":
+            idx = int(math.ceil(ratio))
+        elif rounding == "floor":
+            idx = int(math.floor(ratio))
+        else:
+            raise ValueError("rounding must be 'ceil' or 'floor'")
+        if idx < 0:
+            idx = 0
+        indices.append(idx)
+    return indices
+
+
+def _filament_for_depth(
+    depth_mm: float, stack_ids: List[str], thresholds: List[float]
+) -> str:
+    for filament_id, threshold in zip(stack_ids, thresholds):
+        if depth_mm <= threshold:
+            return filament_id
+    return stack_ids[-1]
+
+
+def _layer_plan_optical(
+    stack_ids: List[str],
+    thresholds: List[float],
+    total_layers: int,
+    base_layer_mm: float,
+    color_layer_mm: float,
+) -> Dict[str, Any]:
+    layers = []
+    for idx in range(total_layers):
+        depth = float(idx) * color_layer_mm
+        filament_id = _filament_for_depth(depth, stack_ids, thresholds)
+        layers.append(
+            {
+                "layer_index": idx,
+                "z_mm": base_layer_mm + idx * color_layer_mm,
+                "filament_id": filament_id,
+            }
+        )
+    return {"layers": layers}
+
+
+def _write_colorplan_optical(
+    output_path: str,
+    print_config: Dict[str, Any],
+    stack_ids: List[str],
+    thresholds: List[float],
+    base_layer_mm: float,
+    color_layer_mm: float,
+) -> None:
+    catalog_path = Path(
+        print_config.get("filament_catalog", "filaments/default_catalog.json")
+    )
+    catalog = load_catalog(catalog_path)
+    change_indices = _thresholds_to_layer_indices(
+        thresholds[:-1], color_layer_mm, rounding="ceil"
+    )
+    changes = []
+    last_layer_index = 0
+    current_id = stack_ids[0]
+    for idx, layer_index in enumerate(change_indices):
+        if layer_index <= last_layer_index:
+            continue
+        filament_id = stack_ids[idx + 1]
+        if filament_id == current_id:
+            continue
+        changes.append(
+            {
+                "layer_index": layer_index,
+                "z_mm": base_layer_mm + layer_index * color_layer_mm,
+                "filament_id": filament_id,
+            }
+        )
+        last_layer_index = layer_index
+        current_id = filament_id
+    total_layers = _total_layers_from_thresholds(
+        thresholds, color_layer_mm, rounding="ceil"
+    )
+    plan = {
+        "total_layers": total_layers,
+        "start": {
+            "layer_index": 0,
+            "z_mm": base_layer_mm,
+            "filament_id": stack_ids[0],
+        },
+        "changes": changes,
+    }
+    export_colorplan_txt(Path(output_path), plan, catalog, base_layer_mm, color_layer_mm)
 
 
 def _preview_image_by_label(

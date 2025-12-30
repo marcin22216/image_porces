@@ -1089,8 +1089,40 @@ Mapa ścieżki wykonania:
 | STL write | hueforge/core/pipeline.py::_write_ascii_stl |
 | Layer plan | hueforge/core/pipeline.py::_layer_plan + layer_plan.json in _write_debug |
 
+## Iteration 44 — Cleanup unexpected hypothesis files
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Cleanup: removed unexpected scratch files (bundle_entry_flow.py, height_map_contract.py, hueforge_z_diagnostic.md, layer_plan_generation.py).
+
 ## Iteration 40 — Add HueForge library sync tool (td preserved 1:1)
 Status: DONE
 Tests: python3 -m pytest -q → PASS
 
 Tooling: added src/tools/hueforge_library_sync.py to update td_mm in default_catalog.json from HueForge library JSON without changing other fields; added sync tests and README note.
+
+## Iteration 45 — Optical heightfield mode (optical_hueforge)
+Status: DONE
+Tests: python3 -m src.app.main doctor → OK; python3 -m pytest -q → PASS
+
+Added new height_map.mode="optical_hueforge" (Beer–Lambert optical heightfield) with pure solver in hueforge/physics/optical_heightfield.py, plus optical-aware layer_plan/colorplan generation and a smoke test asserting non-zero Z relief and determinism.
+
+Required config fields for optical_hueforge:
+- height_map.mode="optical_hueforge"
+- print.max_thickness_mm
+- print.color_layer_mm
+- optical.stack_filament_ids
+- optical.stack_thresholds_mm (strictly increasing; last == max_thickness_mm)
+- optical.metric ("lab" or "rgb")
+- optical.color_space ("srgb" or "linear_srgb")
+- optical.step_mm
+
+Swap layer indices for optical colorplan:
+- layer_index = ceil(threshold_mm / color_layer_mm)
+- changes are emitted in ascending order; duplicates and same-filament changes are skipped.
+
+Smoke run (tests/fixtures/tiny.png, optical stack base/black/blue, thresholds 0.24/0.48/0.72, step 0.02):
+- STL bbox Z: min=0.000000, max=0.720000 (range 0.720000)
+- TOTAL_LAYERS: 10
+
+Docs moved under docs/hueforge_spec/ with a short README and references in README.md.

@@ -36,6 +36,11 @@ Migration note: legacy CLI remains the entry point while the HueForge-style layo
 - `docs/reference/hueforge_technical_process.md` — step-by-step technical process (conceptual).
 - `docs/MIGRATION.md` — mapping from legacy `src/` to target `hueforge/`.
 - `docs/legacy/STRUKTURA.md` — legacy tree snapshot.
+- `docs/hueforge_spec/` — confirmed HueForge-like contract and optical solver notes.
+
+Optical heightfield mode (HueForge-like): set `height_map.mode="optical_hueforge"` with
+`optical.*` config and `print.max_thickness_mm`, then run via `--preset`.
+See `docs/hueforge_spec/README.md` for the required fields and a minimal config example.
 
 ## Quick start (5 minutes)
 Installation:

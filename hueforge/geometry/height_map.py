@@ -4,11 +4,47 @@ from typing import Dict
 
 import numpy as np
 
+from hueforge.physics.optical_heightfield import build_height_map
+
 
 def generate_height_map(labels: np.ndarray, **params) -> np.ndarray:
-    _validate_labels(labels)
-
     mode = params.get("mode", "by_index")
+    if mode == "optical_hueforge":
+        image_rgb = params.get("image_rgb")
+        optical = params.get("optical", {})
+        catalog = params.get("catalog")
+        max_thickness_mm = params.get("max_thickness_mm")
+        if image_rgb is None:
+            raise ValueError("optical_hueforge requires image_rgb")
+        if catalog is None:
+            raise ValueError("optical_hueforge requires catalog")
+        if max_thickness_mm is None:
+            raise ValueError("optical_hueforge requires max_thickness_mm")
+        stack_ids = optical.get("stack_filament_ids")
+        thresholds = optical.get("stack_thresholds_mm")
+        metric = optical.get("metric", "lab")
+        color_space = optical.get("color_space", "linear_srgb")
+        step_mm = float(optical.get("step_mm", 0.01))
+        if not isinstance(stack_ids, list) or not all(
+            isinstance(item, str) for item in stack_ids
+        ):
+            raise ValueError("stack_filament_ids must be list[str]")
+        if not isinstance(thresholds, list) or not all(
+            isinstance(item, (int, float)) for item in thresholds
+        ):
+            raise ValueError("stack_thresholds_mm must be list[float]")
+        return build_height_map(
+            image_rgb,
+            stack_filament_ids=stack_ids,
+            stack_thresholds_mm=[float(item) for item in thresholds],
+            max_thickness_mm=float(max_thickness_mm),
+            step_mm=step_mm,
+            catalog=catalog,
+            metric=str(metric),
+            color_space=str(color_space),
+        )
+
+    _validate_labels(labels)
     if mode == "by_index":
         scale = float(params.get("scale", 1.0))
         if scale < 0:
