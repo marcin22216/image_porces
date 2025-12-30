@@ -118,6 +118,13 @@
         color: rgba(29, 28, 26, 0.65);
       }
 
+      .hint-list {
+        margin: 6px 0 0;
+        padding-left: 18px;
+        color: rgba(29, 28, 26, 0.65);
+        font-size: 13px;
+      }
+
       .status {
         min-height: 22px;
         font-size: 14px;
@@ -126,6 +133,31 @@
 
       .status.error {
         color: #b6422b;
+      }
+
+      .status-panel {
+        border: 1px dashed rgba(29, 28, 26, 0.2);
+        border-radius: 12px;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.7);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font-size: 14px;
+      }
+
+      .status-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .status-label {
+        font-weight: 700;
+      }
+
+      .status-value {
+        text-align: right;
       }
 
       .preview {
@@ -189,21 +221,54 @@
             <div class="field" style="margin-top: 14px;">
               <label for="nColors">n_colors (optional)</label>
               <input id="nColors" name="n_colors" type="number" min="1" step="1" placeholder="e.g. 4" />
+              <div class="hint">n_colors: liczba kolorow w palecie (mniej = prostszy wynik).</div>
             </div>
 
             <div class="field" style="margin-top: 14px;">
               <label for="blendDepth">blend_depth (optional)</label>
               <input id="blendDepth" name="blend_depth" type="number" min="0" step="0.1" placeholder="e.g. 1.2" />
+              <div class="hint">blend_depth: glebokosc mieszania na granicach regionow (wiecej = plynniejsze przejscia).</div>
             </div>
 
             <div class="actions">
               <button type="submit">Generate preview</button>
               <span class="hint">Calls POST /preview</span>
             </div>
+
+            <div class="field" style="margin-top: 16px;">
+              <label>How to test</label>
+              <ol class="hint-list">
+                <li>wybierz obraz</li>
+                <li>ustaw parametry</li>
+                <li>kliknij Preview (lub poczekaj na live preview)</li>
+              </ol>
+            </div>
+
+            <p class="hint" style="margin-top: 10px;">
+              UI generuje tylko preview (PNG). STL i colorplan sa w trybie bundle/CLI.
+            </p>
           </form>
         </section>
 
         <section class="card preview">
+          <div class="status-panel">
+            <div class="status-row">
+              <span class="status-label">File</span>
+              <span id="statusFile" class="status-value">None</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">n_colors</span>
+              <span id="statusColors" class="status-value">default</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">blend_depth</span>
+              <span id="statusBlend" class="status-value">default</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">Status</span>
+              <span id="statusState" class="status-value">Idle</span>
+            </div>
+          </div>
           <div id="status" class="status"></div>
           <img id="previewImage" alt="Preview output" />
         </section>

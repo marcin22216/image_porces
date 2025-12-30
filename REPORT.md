@@ -220,3 +220,11 @@ Tests: PYTHONPATH=. python3 -m pytest -q → PASS
 
 Audit Snapshot v1 created: AUDIT_REPORT_v1_2025-12-30.md
 Foundation v1 formally closed after audit snapshot (AUDIT_REPORT_v1_2025-12-30.md).
+
+## Iteration 13 — UI copy & status panel
+Status: DONE
+Tests: PYTHONPATH=. python3 -m pytest -q → PASS
+
+## Iteration 14 — Manual UI test scenarios
+Status: DONE
+Tests: PYTHONPATH=. python3 -m src.app.main doctor → OK

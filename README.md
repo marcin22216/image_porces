@@ -63,6 +63,9 @@ or
    `http://127.0.0.1:8000/ui`
 3) Upload an image, set `n_colors` and `blend_depth` if needed, then click Generate preview.
 4) Adjusting `n_colors` or `blend_depth` triggers live preview after a short debounce.
+The status panel shows the selected file, current parameter values, and the request state.
+Idle means no request is running, Rendering means a request is in progress, Done means preview is ready, and Error indicates failure.
+For repeatable UI checks, see `manual_tests/README.md`.
 
 Preview:
 `curl -F "file=@examples/input.png" -F "catalog=data/filament_catalog_filamentcolors.json" http://127.0.0.1:8000/preview --output preview.png`
