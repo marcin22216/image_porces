@@ -48,6 +48,7 @@ Installation:
 - `make sync-filaments`
 - `make preview IMG=examples/input.png`
 - `make bundle IMG=examples/input.png OUT=examples/output.zip`
+ - `python3 -m src.app.main stl-diagnostics --stl artifacts/hueforge_bundle_smoke/out.stl`
 
 Preview command:
 `python3 -m src.app.main preview --in INPUT_IMAGE --debug preview_out`

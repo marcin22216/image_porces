@@ -91,6 +91,11 @@ def main():
     hueforge_bundle_parser.add_argument("--width-mm", dest="width_mm", type=float)
     hueforge_bundle_parser.add_argument("--height-mm", dest="height_mm", type=float)
 
+    stl_diag_parser = subparsers.add_parser(
+        "stl-diagnostics", help="Report STL size/triangles/bounds"
+    )
+    stl_diag_parser.add_argument("--stl", dest="stl_path", required=True)
+
     args = parser.parse_args()
     try:
         if args.version:
@@ -119,6 +124,9 @@ def main():
             return
         if args.command == "hueforge-bundle":
             _hueforge_bundle_command(args)
+            return
+        if args.command == "stl-diagnostics":
+            _stl_diagnostics_command(args)
             return
         parser.print_help()
     except CliError as exc:
@@ -375,6 +383,16 @@ def _hueforge_bundle_command(args: argparse.Namespace) -> None:
     print("Files:")
     for name in files:
         print(f"- {name}")
+
+
+def _stl_diagnostics_command(args: argparse.Namespace) -> None:
+    from src.tools.stl_diagnostics import analyze_stl, format_report
+
+    stl_path = Path(args.stl_path)
+    if not stl_path.exists():
+        raise CliError(f"STL not found: {args.stl_path}")
+    metrics = analyze_stl(stl_path)
+    print(format_report(metrics))
 
 def _find_missing_allowed(catalog_path: Path, allowed_filaments: list[str]) -> list[str]:
     from src.print.filaments import load_catalog
