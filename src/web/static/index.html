@@ -247,6 +247,21 @@
             <p class="hint" style="margin-top: 10px;">
               UI generuje tylko preview (PNG). STL i colorplan sa w trybie bundle/CLI.
             </p>
+
+            <div class="field" style="margin-top: 14px;">
+              <label>Preview error states</label>
+              <ul class="hint-list">
+                <li>No file selected</li>
+                <li>File too large (>20MB)</li>
+                <li>Invalid image</li>
+                <li>Backend rejected request (400)</li>
+                <li>Network error / server not reachable</li>
+              </ul>
+              <p class="hint" style="margin-top: 8px;">
+                These are preview-only errors (PNG only). They do not change outputs or files.
+                The UI does not retry or use fallbacks.
+              </p>
+            </div>
           </form>
         </section>
 

@@ -89,7 +89,7 @@
     if (!formData) {
       if (showMissingFileError) {
         clearPreview();
-        setStatus("Select an image file to continue.", true);
+        setStatus("No file selected", true);
         setStatusState("Error");
       }
       return;
@@ -114,7 +114,11 @@
         return;
       }
       if (!response.ok) {
-        setStatus(`Preview failed: ${response.status}`, true);
+        if (response.status === 400) {
+          setStatus("Preview failed (invalid input)", true);
+        } else {
+          setStatus(`Preview failed (status ${response.status})`, true);
+        }
         setStatusState("Error");
         return;
       }
