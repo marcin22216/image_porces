@@ -296,6 +296,18 @@
               <span id="statusState" class="status-value">Idle</span>
             </div>
             <div class="status-row">
+              <span class="status-label">Last updated</span>
+              <span id="statusUpdated" class="status-value">Never</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">Preview matches current inputs</span>
+              <span id="statusFresh" class="status-value">Unknown</span>
+            </div>
+            <p class="hint">
+              Last updated is the end time of the latest request (Done or Error).
+              Preview matches current inputs compares the preview to the current file and parameters.
+            </p>
+            <div class="status-row">
               <span class="status-label">Request summary</span>
               <span class="status-value"></span>
             </div>
@@ -323,6 +335,26 @@
               <span class="status-label">blend_depth</span>
               <span id="requestBlend" class="status-value">default</span>
             </div>
+            <div class="status-row">
+              <span class="status-label">Included fields</span>
+              <span id="statusFields" class="status-value">file only</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">Omitted fields</span>
+              <span id="statusOmitted" class="status-value">n_colors, blend_depth</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">Payload details</span>
+              <span class="status-value"></span>
+            </div>
+            <ul class="hint-list">
+              <li>file: UploadFile (image/*), always required</li>
+              <li>n_colors: int, sent only when filled (empty = omitted)</li>
+              <li>blend_depth: float, sent only when filled (empty = omitted)</li>
+            </ul>
+            <p class="hint">
+              UI does not send any other fields (catalog/sequence/allowed) on this screen.
+            </p>
             <p class="hint">
               UI sends only the fields listed above.
             </p>

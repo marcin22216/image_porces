@@ -10,14 +10,19 @@
   const statusColors = document.getElementById("statusColors");
   const statusBlend = document.getElementById("statusBlend");
   const statusState = document.getElementById("statusState");
+  const statusUpdated = document.getElementById("statusUpdated");
+  const statusFresh = document.getElementById("statusFresh");
   const requestFile = document.getElementById("requestFile");
   const requestColors = document.getElementById("requestColors");
   const requestBlend = document.getElementById("requestBlend");
+  const statusFields = document.getElementById("statusFields");
+  const statusOmitted = document.getElementById("statusOmitted");
 
   let currentPreviewUrl = null;
   let debounceTimer = null;
   let activeController = null;
   let activeRequestId = 0;
+  let lastCompletedSnapshot = null;
 
   const formatBytes = (bytes) => {
     if (!Number.isFinite(bytes) || bytes <= 0) {
@@ -35,23 +40,82 @@
     statusState.textContent = state;
   };
 
+  const setStatusUpdated = () => {
+    statusUpdated.textContent = new Date().toLocaleTimeString();
+  };
+
+  const setFreshness = (value) => {
+    statusFresh.textContent = value;
+  };
+
   const setStatus = (message, isError = false) => {
     statusEl.textContent = message;
     statusEl.classList.toggle("error", isError);
   };
 
+  const captureSnapshot = () => {
+    const file = fileInput.files[0];
+    return {
+      fileName: file ? file.name : null,
+      fileSize: file ? file.size : null,
+      nColors: nColorsInput.value || "",
+      blendDepth: blendDepthInput.value || "",
+    };
+  };
+
+  const snapshotsEqual = (left, right) => {
+    if (!left || !right) {
+      return false;
+    }
+    return (
+      left.fileName === right.fileName
+      && left.fileSize === right.fileSize
+      && left.nColors === right.nColors
+      && left.blendDepth === right.blendDepth
+    );
+  };
+
+  const updateFreshness = () => {
+    if (!lastCompletedSnapshot) {
+      setFreshness("Unknown");
+      return;
+    }
+    const current = captureSnapshot();
+    setFreshness(snapshotsEqual(current, lastCompletedSnapshot) ? "Yes" : "No");
+  };
+
   const updateStatusPanel = () => {
     const file = fileInput.files[0];
     let fileSummary = "None";
+    const included = [];
+    const omitted = [];
     if (file) {
       fileSummary = `${file.name} (${formatBytes(file.size)})`;
+      included.push("file");
+    } else {
+      omitted.push("file");
     }
     statusFile.textContent = fileSummary;
     requestFile.textContent = fileSummary;
-    statusColors.textContent = nColorsInput.value || "default";
-    requestColors.textContent = nColorsInput.value || "default";
-    statusBlend.textContent = blendDepthInput.value || "default";
-    requestBlend.textContent = blendDepthInput.value || "default";
+    const nColorsValue = nColorsInput.value.trim();
+    const blendDepthValue = blendDepthInput.value.trim();
+    statusColors.textContent = nColorsValue || "default";
+    requestColors.textContent = nColorsValue || "default";
+    statusBlend.textContent = blendDepthValue || "default";
+    requestBlend.textContent = blendDepthValue || "default";
+    if (nColorsValue) {
+      included.push("n_colors");
+    } else {
+      omitted.push("n_colors");
+    }
+    if (blendDepthValue) {
+      included.push("blend_depth");
+    } else {
+      omitted.push("blend_depth");
+    }
+    statusFields.textContent = included.length ? included.join(", ") : "none";
+    statusOmitted.textContent = omitted.length ? omitted.join(", ") : "none";
+    updateFreshness();
   };
 
   const clearPreview = () => {
@@ -106,6 +170,7 @@
     activeController = controller;
     const requestId = activeRequestId + 1;
     activeRequestId = requestId;
+    const requestSnapshot = captureSnapshot();
     setBusy(true);
     setStatusState("Rendering...");
     setStatus("Rendering...");
@@ -126,6 +191,8 @@
           setStatus(`Preview failed (status ${response.status})`, true);
         }
         setStatusState("Error");
+        setStatusUpdated();
+        updateFreshness();
         return;
       }
 
@@ -139,7 +206,10 @@
       currentPreviewUrl = URL.createObjectURL(blob);
       previewImage.src = currentPreviewUrl;
       previewImage.style.display = "block";
+      lastCompletedSnapshot = requestSnapshot;
       setStatusState("Done");
+      setStatusUpdated();
+      setFreshness("Yes");
       setStatus("Preview ready.");
     } catch (error) {
       if (error.name === "AbortError") {
@@ -147,6 +217,8 @@
       }
       setStatus("Network error", true);
       setStatusState("Error");
+      setStatusUpdated();
+      updateFreshness();
     } finally {
       if (requestId === activeRequestId) {
         setBusy(false);
@@ -187,5 +259,7 @@
   });
 
   setStatusState("Idle");
+  setFreshness("Unknown");
+  statusUpdated.textContent = "Never";
   updateStatusPanel();
 })();

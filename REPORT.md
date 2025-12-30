@@ -240,3 +240,11 @@ Tests: PYTHONPATH=. python3 -m pytest -q → PASS
 ## Iteration 17 — UI manual test checklist
 Status: DONE
 Tests: PYTHONPATH=. python3 -m pytest -q → PASS
+
+## Iteration 18 — UI result freshness
+Status: DONE
+Tests: PYTHONPATH=. python3 -m pytest -q → PASS
+
+## Iteration 19 — UI payload details
+Status: DONE
+Tests: PYTHONPATH=. python3 -m pytest -q → PASS
