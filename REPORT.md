@@ -232,3 +232,7 @@ Tests: PYTHONPATH=. python3 -m src.app.main doctor → OK
 ## Iteration 15 — UI error states copy
 Status: DONE
 Tests: PYTHONPATH=. python3 -m pytest -q → PASS
+
+## Iteration 16 — UI request summary
+Status: DONE
+Tests: PYTHONPATH=. python3 -m pytest -q → PASS

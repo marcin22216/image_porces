@@ -10,6 +10,9 @@
   const statusColors = document.getElementById("statusColors");
   const statusBlend = document.getElementById("statusBlend");
   const statusState = document.getElementById("statusState");
+  const requestFile = document.getElementById("requestFile");
+  const requestColors = document.getElementById("requestColors");
+  const requestBlend = document.getElementById("requestBlend");
 
   let currentPreviewUrl = null;
   let debounceTimer = null;
@@ -39,13 +42,16 @@
 
   const updateStatusPanel = () => {
     const file = fileInput.files[0];
+    let fileSummary = "None";
     if (file) {
-      statusFile.textContent = `${file.name} (${formatBytes(file.size)})`;
-    } else {
-      statusFile.textContent = "None";
+      fileSummary = `${file.name} (${formatBytes(file.size)})`;
     }
+    statusFile.textContent = fileSummary;
+    requestFile.textContent = fileSummary;
     statusColors.textContent = nColorsInput.value || "default";
+    requestColors.textContent = nColorsInput.value || "default";
     statusBlend.textContent = blendDepthInput.value || "default";
+    requestBlend.textContent = blendDepthInput.value || "default";
   };
 
   const clearPreview = () => {
