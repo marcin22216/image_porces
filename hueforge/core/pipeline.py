@@ -19,11 +19,11 @@ from hueforge.preprocessing.scale import scale_image_to_canvas
 from hueforge.preprocessing.segment_superpixels import segment
 from src.app.image_io import ImageData, load_image, save_image
 from hueforge.palette.palette_suggestion import suggest_palette
-from src.print.filament_assignment import assign_palette_to_filaments
-from src.print.filaments import load_catalog
-from src.solver.region_recipe import solve_layers_by_label
+from hueforge.print.filament_assignment import assign_palette_to_filaments
+from hueforge.print.filaments import load_catalog
+from hueforge.solver.region_recipe import solve_layers_by_label
 
-# TODO migrate: src.app.image_io, src.ops.palette_suggestion, src.print.*, src.solver.*
+# TODO migrate: src.app.image_io, src.ops.palette_suggestion
 
 
 def run_pipeline_hueforge(

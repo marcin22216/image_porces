@@ -428,3 +428,21 @@ Status: DONE
 Tests: python3 -m pytest -q → PASS
 
 Migration: moved suggest_palette into hueforge/palette, replaced src/ops/palette_suggestion with a shim, and updated hueforge shadow pipeline to use the hueforge implementation; added equivalence test.
+
+## Iteration 35 — Migrate filament assignment to hueforge/print
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved filament assignment into hueforge/print, replaced src/print/filament_assignment with a shim, and updated hueforge shadow pipeline to use the hueforge implementation; added equivalence test.
+
+## Iteration 36 — Migrate filament catalog loader to hueforge/print
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved filament catalog loader into hueforge/print, replaced src/print/filaments with a shim, and updated hueforge shadow pipeline to use the hueforge implementation; added equivalence test.
+
+## Iteration 37 — Migrate solver region_recipe to hueforge/solver
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved region_recipe solver into hueforge/solver, replaced src/solver/region_recipe with a shim, updated hueforge shadow pipeline to use hueforge solver, and added equivalence test.

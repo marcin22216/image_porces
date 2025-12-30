@@ -1,0 +1,1200 @@
+{
+  "filaments": [
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Army Green",
+      "hexCode": "#163F0D",
+      "td": 0.4
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Azure Blue",
+      "hexCode": "#25D4D6",
+      "td": 6.6
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Blend Lime Green",
+      "hexCode": "#FFFFBC",
+      "td": 3.5
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Blend Ms. Pink",
+      "hexCode": "#FFA4D7",
+      "td": 4.1
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Blend My Silverness",
+      "hexCode": "#C4DDC0",
+      "td": 1.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Blend Oh My Gold",
+      "hexCode": "#FFFF8E",
+      "td": 4.1
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Blend Pearl White",
+      "hexCode": "#FFFFFF",
+      "td": 5.4
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Blend Royal Blue",
+      "hexCode": "#1067C2",
+      "td": 0.8
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Blend Viva La Bronze",
+      "hexCode": "#FBB556",
+      "td": 1.9
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Galaxy Green",
+      "hexCode": "#15ED26",
+      "td": 3.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Galaxy Purple",
+      "hexCode": "#0F0939",
+      "td": 4.7
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Galaxy Silver",
+      "hexCode": "#CFE3C0",
+      "td": 6.4
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Gentleman's Grey",
+      "hexCode": "#0A2811",
+      "td": 0.3
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Gravity Grey",
+      "hexCode": "#C4E0C3",
+      "td": 0.7
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Jet Black",
+      "hexCode": "#0A1E0B",
+      "td": 0.3
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Lipstick Red",
+      "hexCode": "#FF0D1A",
+      "td": 3.3
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Marble Grey",
+      "hexCode": "#FFFFFF",
+      "td": 3.5
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Opal Green",
+      "hexCode": "#0B691D",
+      "td": 4.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Pearl Mouse",
+      "hexCode": "#CFDA92",
+      "td": 2.3
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Pineapple Yellow",
+      "hexCode": "#FFFF93",
+      "td": 7.6
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Prusa Galaxy Black",
+      "hexCode": "#163114",
+      "td": 0.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Pristine White",
+      "hexCode": "#FFFFFF",
+      "td": 5.1
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Prusa Orange",
+      "hexCode": "#FF7238",
+      "td": 6.6
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Simply Green",
+      "hexCode": "#BBFF78",
+      "td": 3.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Vanilla White",
+      "hexCode": "#FFFFF7",
+      "td": 7.1
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Premium Mystic Brown",
+      "hexCode": "#241D0D",
+      "td": 1.8
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PLA",
+      "color": "Premium Mystic Green",
+      "hexCode": "#3D651F",
+      "td": 1.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "rPLA",
+      "color": "Risotto Pigment",
+      "hexCode": "#FFFFF3",
+      "td": 11.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "rPLA",
+      "color": "Algae Pigment",
+      "hexCode": "#201C08",
+      "td": 4.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "rPLA",
+      "color": "Wine Pigment",
+      "hexCode": "#8E1012",
+      "td": 2.8
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "rPLA",
+      "color": "Corn Pigment",
+      "hexCode": "#D89C43",
+      "td": 6.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Anthracite Grey",
+      "hexCode": "#0C2C11",
+      "td": 0.3
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Carmine Red Transparent",
+      "hexCode": "#E32B1F",
+      "td": 6.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Chalky Blue",
+      "hexCode": "#85D1C4",
+      "td": 0.6
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Clear",
+      "hexCode": "#FFFFFF",
+      "td": 100.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Jet Black",
+      "hexCode": "#0A1E0B",
+      "td": 0.3
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Jungle Green",
+      "hexCode": "#0F8827",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Lipstick Red",
+      "hexCode": "#FF0D1A",
+      "td": 2.8
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Mango Yellow",
+      "hexCode": "#FFFFBF",
+      "td": 2.6
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Matte Black",
+      "hexCode": "#09200A",
+      "td": 0.3
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Neon Green Transparent",
+      "hexCode": "#FFFFFF",
+      "td": 75.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Ocean Blue",
+      "hexCode": "#09DEEC",
+      "td": 3.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Pistachio Green",
+      "hexCode": "#C0EEA5",
+      "td": 0.9
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Prusa Galaxy Black",
+      "hexCode": "#133112",
+      "td": 0.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Prusa Orange",
+      "hexCode": "#FF7E3C",
+      "td": 6.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Prusa Orange Transparent",
+      "hexCode": "#FFFFDB",
+      "td": 44.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Signal White",
+      "hexCode": "#FFFFFF",
+      "td": 3.4
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Terracotta Light",
+      "hexCode": "#FFB192",
+      "td": 1.5
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Ultramarine Blue Transparent",
+      "hexCode": "#071DF2",
+      "td": 8.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Urban Grey",
+      "hexCode": "#BED2AF",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PETG",
+      "color": "Yellow Gold",
+      "hexCode": "#FFFF57",
+      "td": 9.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PVB",
+      "color": "Bright Green Transparent",
+      "hexCode": "#FFFFFF",
+      "td": 49.2
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PVB",
+      "color": "Dark Blue Transparent",
+      "hexCode": "#053FA6",
+      "td": 7.6
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PVB",
+      "color": "Light Yellow Transparent",
+      "hexCode": "#FFFFEC",
+      "td": 34.6
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PVB",
+      "color": "Natural Transparent",
+      "hexCode": "#FFFFFF",
+      "td": 100.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PVB",
+      "color": "Prusa Orange Transparent",
+      "hexCode": "#FFF38A",
+      "td": 34.7
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PVB",
+      "color": "Smoky Black Transparent",
+      "hexCode": "#FFFFE6",
+      "td": 18.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "ASA",
+      "color": "Jet Black",
+      "hexCode": "#0C1B0B",
+      "td": 0.4
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "ASA",
+      "color": "Lipstick Red",
+      "hexCode": "#EB141B",
+      "td": 2.0
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "ASA",
+      "color": "Natural",
+      "hexCode": "#FFFFFF",
+      "td": 6.5
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "ASA",
+      "color": "Prusa Galaxy Black",
+      "hexCode": "#122B0F",
+      "td": 0.1
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "ASA",
+      "color": "Prusa Orange",
+      "hexCode": "#FF8344",
+      "td": 4.4
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "ASA",
+      "color": "Sapphire Blue",
+      "hexCode": "#071F16",
+      "td": 0.3
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "ASA",
+      "color": "Signal White",
+      "hexCode": "#FFFFFF",
+      "td": 2.4
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PC Blend",
+      "color": "Jet Black",
+      "hexCode": "#0B230D",
+      "td": 0.4
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PC Blend",
+      "color": "Natural",
+      "hexCode": "#FFFFFF",
+      "td": 11.3
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PC Blend",
+      "color": "Prusa Orange",
+      "hexCode": "#FF9445",
+      "td": 6.4
+    },
+    {
+      "manufacturer": "Prusament",
+      "type": "PC Blend",
+      "color": "Urban Grey",
+      "hexCode": "#C3DBBF",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Matte",
+      "color": "Charcoal",
+      "hexCode": "#2B2B2B",
+      "td": 0.6
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Matte",
+      "color": "Ivory White",
+      "hexCode": "#FFFFF0",
+      "td": 3.8
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Matte",
+      "color": "Lemon Yellow",
+      "hexCode": "#FFF44F",
+      "td": 4.0
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Black",
+      "hexCode": "#000000",
+      "td": 0.6
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Dark Gray",
+      "hexCode": "#555555",
+      "td": 1.6
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Blue Gray",
+      "hexCode": "#6699CC",
+      "td": 3.0
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Jade White",
+      "hexCode": "#F0FFF0",
+      "td": 6.0
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Bambu Green",
+      "hexCode": "#00FF7F",
+      "td": 8.0
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Indigo Purple",
+      "hexCode": "#4B0082",
+      "td": 0.9
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Purple",
+      "hexCode": "#800080",
+      "td": 1.9
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Pink",
+      "hexCode": "#FFC0CB",
+      "td": 5.8
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Blue",
+      "hexCode": "#0000FF",
+      "td": 2.6
+    },
+    {
+      "manufacturer": "Bambu Lab",
+      "type": "PLA Basic",
+      "color": "Cyan",
+      "hexCode": "#00FFFF",
+      "td": 7.2
+    },
+    {
+      "manufacturer": "PolyLite",
+      "type": "PLA",
+      "color": "Jungle Green",
+      "hexCode": "#228B22",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "PolyLite",
+      "type": "PLA",
+      "color": "Yellow",
+      "hexCode": "#FFFF00",
+      "td": 10.0
+    },
+    {
+      "manufacturer": "PolyLite",
+      "type": "PLA",
+      "color": "Blue",
+      "hexCode": "#0000FF",
+      "td": 1.6
+    },
+    {
+      "manufacturer": "PolyLite",
+      "type": "PLA",
+      "color": "Azure Blue",
+      "hexCode": "#007FFF",
+      "td": 4.2
+    },
+    {
+      "manufacturer": "PolyLite",
+      "type": "PLA",
+      "color": "Aqua Blue",
+      "hexCode": "#00CED1",
+      "td": 3.9
+    },
+    {
+      "manufacturer": "PolyTerra",
+      "type": "PLA",
+      "color": "Savannah Yellow",
+      "hexCode": "#F4C430",
+      "td": 3.6
+    },
+    {
+      "manufacturer": "PolyTerra",
+      "type": "PLA",
+      "color": "Ash Gray",
+      "hexCode": "#B2BEB5",
+      "td": 0.7
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Matte Black",
+      "hexCode": "#1C1C1C",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Matte White",
+      "hexCode": "#F5F5F5",
+      "td": 4.5
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Matte Red",
+      "hexCode": "#DC143C",
+      "td": 2.8
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Matte Blue",
+      "hexCode": "#0047AB",
+      "td": 3.2
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Matte Green",
+      "hexCode": "#228B22",
+      "td": 2.5
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Matte Yellow",
+      "hexCode": "#FFD700",
+      "td": 6.8
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Silk Silver",
+      "hexCode": "#C0C0C0",
+      "td": 5.2
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Silk Gold",
+      "hexCode": "#FFD700",
+      "td": 4.8
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Translucent Clear",
+      "hexCode": "#FFFFFF",
+      "td": 15.0
+    },
+    {
+      "manufacturer": "Polymaker",
+      "type": "Panchroma PLA",
+      "color": "Translucent Blue",
+      "hexCode": "#4169E1",
+      "td": 12.5
+    },
+    {
+      "manufacturer": "SUNLU",
+      "type": "PLA",
+      "color": "Black",
+      "hexCode": "#000000",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "SUNLU",
+      "type": "PLA",
+      "color": "White",
+      "hexCode": "#FFFFFF",
+      "td": 4.2
+    },
+    {
+      "manufacturer": "SUNLU",
+      "type": "PLA",
+      "color": "Red",
+      "hexCode": "#FF0000",
+      "td": 2.5
+    },
+    {
+      "manufacturer": "SUNLU",
+      "type": "PLA",
+      "color": "Blue",
+      "hexCode": "#0000FF",
+      "td": 2.8
+    },
+    {
+      "manufacturer": "SUNLU",
+      "type": "PLA",
+      "color": "Green",
+      "hexCode": "#00FF00",
+      "td": 3.5
+    },
+    {
+      "manufacturer": "SUNLU",
+      "type": "PLA",
+      "color": "Yellow",
+      "hexCode": "#FFFF00",
+      "td": 7.5
+    },
+    {
+      "manufacturer": "SUNLU",
+      "type": "PLA",
+      "color": "Orange",
+      "hexCode": "#FFA500",
+      "td": 5.5
+    },
+    {
+      "manufacturer": "SUNLU",
+      "type": "PLA Silk",
+      "color": "Gold",
+      "hexCode": "#FFD700",
+      "td": 4.5
+    },
+    {
+      "manufacturer": "SUNLU",
+      "type": "PLA Silk",
+      "color": "Silver",
+      "hexCode": "#C0C0C0",
+      "td": 5.0
+    },
+    {
+      "manufacturer": "eSUN",
+      "type": "PLA+",
+      "color": "Black",
+      "hexCode": "#000000",
+      "td": 0.6
+    },
+    {
+      "manufacturer": "eSUN",
+      "type": "PLA+",
+      "color": "White",
+      "hexCode": "#FFFFFF",
+      "td": 4.8
+    },
+    {
+      "manufacturer": "eSUN",
+      "type": "PLA+",
+      "color": "Red",
+      "hexCode": "#FF0000",
+      "td": 2.2
+    },
+    {
+      "manufacturer": "eSUN",
+      "type": "PLA+",
+      "color": "Blue",
+      "hexCode": "#0000FF",
+      "td": 2.5
+    },
+    {
+      "manufacturer": "eSUN",
+      "type": "PLA+",
+      "color": "Green",
+      "hexCode": "#00FF00",
+      "td": 3.2
+    },
+    {
+      "manufacturer": "eSUN",
+      "type": "PLA+",
+      "color": "Gray",
+      "hexCode": "#808080",
+      "td": 1.8
+    },
+    {
+      "manufacturer": "eSUN",
+      "type": "PLA+",
+      "color": "Orange",
+      "hexCode": "#FFA500",
+      "td": 5.2
+    },
+    {
+      "manufacturer": "Overture",
+      "type": "PLA",
+      "color": "Black",
+      "hexCode": "#000000",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "Overture",
+      "type": "PLA",
+      "color": "White",
+      "hexCode": "#FFFFFF",
+      "td": 4.5
+    },
+    {
+      "manufacturer": "Overture",
+      "type": "PLA",
+      "color": "Red",
+      "hexCode": "#FF0000",
+      "td": 2.6
+    },
+    {
+      "manufacturer": "Overture",
+      "type": "PLA",
+      "color": "Blue",
+      "hexCode": "#0000FF",
+      "td": 2.7
+    },
+    {
+      "manufacturer": "Overture",
+      "type": "PLA",
+      "color": "Green",
+      "hexCode": "#00FF00",
+      "td": 3.3
+    },
+    {
+      "manufacturer": "Overture",
+      "type": "PLA",
+      "color": "Yellow",
+      "hexCode": "#FFFF00",
+      "td": 7.8
+    },
+    {
+      "manufacturer": "Overture",
+      "type": "PLA",
+      "color": "Orange",
+      "hexCode": "#FFA500",
+      "td": 5.8
+    },
+    {
+      "manufacturer": "Overture",
+      "type": "PLA",
+      "color": "Gray",
+      "hexCode": "#808080",
+      "td": 1.5
+    },
+    {
+      "manufacturer": "Fillamentum",
+      "type": "PLA",
+      "color": "Extrafill Traffic Black",
+      "hexCode": "#1C1C1C",
+      "td": 0.4
+    },
+    {
+      "manufacturer": "Fillamentum",
+      "type": "PLA",
+      "color": "Extrafill Traffic White",
+      "hexCode": "#F5F5F5",
+      "td": 4.2
+    },
+    {
+      "manufacturer": "Fillamentum",
+      "type": "PLA",
+      "color": "Extrafill Traffic Red",
+      "hexCode": "#CC0000",
+      "td": 2.4
+    },
+    {
+      "manufacturer": "Fillamentum",
+      "type": "PLA",
+      "color": "Extrafill Signal Blue",
+      "hexCode": "#003399",
+      "td": 2.9
+    },
+    {
+      "manufacturer": "Fillamentum",
+      "type": "PLA",
+      "color": "Extrafill Gentlemen's Grey",
+      "hexCode": "#4D4D4D",
+      "td": 1.2
+    },
+    {
+      "manufacturer": "IIID Max",
+      "type": "PLA",
+      "color": "Black",
+      "hexCode": "#000000",
+      "td": 0.6
+    },
+    {
+      "manufacturer": "IIID Max",
+      "type": "PLA",
+      "color": "White",
+      "hexCode": "#FFFFFF",
+      "td": 4.6
+    },
+    {
+      "manufacturer": "IIID Max",
+      "type": "PLA",
+      "color": "Red",
+      "hexCode": "#FF0000",
+      "td": 2.5
+    },
+    {
+      "manufacturer": "IIID Max",
+      "type": "PLA",
+      "color": "Blue",
+      "hexCode": "#0000FF",
+      "td": 2.8
+    },
+    {
+      "manufacturer": "IIID Max",
+      "type": "PLA",
+      "color": "Green",
+      "hexCode": "#00FF00",
+      "td": 3.4
+    },
+    {
+      "manufacturer": "Paramount 3D",
+      "type": "PLA",
+      "color": "Black",
+      "hexCode": "#000000",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "Paramount 3D",
+      "type": "PLA",
+      "color": "White",
+      "hexCode": "#FFFFFF",
+      "td": 4.3
+    },
+    {
+      "manufacturer": "Paramount 3D",
+      "type": "PLA",
+      "color": "Red",
+      "hexCode": "#FF0000",
+      "td": 2.7
+    },
+    {
+      "manufacturer": "Paramount 3D",
+      "type": "PLA",
+      "color": "Blue",
+      "hexCode": "#0000FF",
+      "td": 2.9
+    },
+    {
+      "manufacturer": "Proto-pasta",
+      "type": "PLA",
+      "color": "Matte Black",
+      "hexCode": "#1A1A1A",
+      "td": 0.4
+    },
+    {
+      "manufacturer": "Proto-pasta",
+      "type": "PLA",
+      "color": "High Five Silver",
+      "hexCode": "#C0C0C0",
+      "td": 4.8
+    },
+    {
+      "manufacturer": "Proto-pasta",
+      "type": "PLA",
+      "color": "Metallic HTPLA",
+      "hexCode": "#708090",
+      "td": 2.2
+    },
+    {
+      "manufacturer": "ColorFabb",
+      "type": "PLA",
+      "color": "Black",
+      "hexCode": "#000000",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "ColorFabb",
+      "type": "PLA",
+      "color": "White",
+      "hexCode": "#FFFFFF",
+      "td": 4.4
+    },
+    {
+      "manufacturer": "ColorFabb",
+      "type": "PLA",
+      "color": "Traffic Red",
+      "hexCode": "#CC0000",
+      "td": 2.3
+    },
+    {
+      "manufacturer": "ColorFabb",
+      "type": "PLA",
+      "color": "Signal Blue",
+      "hexCode": "#003399",
+      "td": 2.6
+    },
+    {
+      "manufacturer": "ColorFabb",
+      "type": "PLA",
+      "color": "Leaf Green",
+      "hexCode": "#00AA00",
+      "td": 3.1
+    },
+    {
+      "manufacturer": "Hatchbox",
+      "type": "PLA",
+      "color": "Black",
+      "hexCode": "#000000",
+      "td": 0.6
+    },
+    {
+      "manufacturer": "Hatchbox",
+      "type": "PLA",
+      "color": "White",
+      "hexCode": "#FFFFFF",
+      "td": 4.7
+    },
+    {
+      "manufacturer": "Hatchbox",
+      "type": "PLA",
+      "color": "True Red",
+      "hexCode": "#FF0000",
+      "td": 2.6
+    },
+    {
+      "manufacturer": "Hatchbox",
+      "type": "PLA",
+      "color": "True Blue",
+      "hexCode": "#0000FF",
+      "td": 2.8
+    },
+    {
+      "manufacturer": "Hatchbox",
+      "type": "PLA",
+      "color": "True Green",
+      "hexCode": "#00FF00",
+      "td": 3.3
+    },
+    {
+      "manufacturer": "Hatchbox",
+      "type": "PLA",
+      "color": "Yellow",
+      "hexCode": "#FFFF00",
+      "td": 7.2
+    },
+    {
+      "manufacturer": "Hatchbox",
+      "type": "PLA",
+      "color": "Orange",
+      "hexCode": "#FFA500",
+      "td": 5.5
+    },
+    {
+      "manufacturer": "Hatchbox",
+      "type": "PLA",
+      "color": "Gray",
+      "hexCode": "#808080",
+      "td": 1.6
+    },
+    {
+      "manufacturer": "3D Jake",
+      "type": "ecoPLA",
+      "color": "Black",
+      "hexCode": "#000000",
+      "td": 0.5
+    },
+    {
+      "manufacturer": "3D Jake",
+      "type": "ecoPLA",
+      "color": "White",
+      "hexCode": "#FFFFFF",
+      "td": 4.5
+    },
+    {
+      "manufacturer": "3D Jake",
+      "type": "ecoPLA",
+      "color": "Red",
+      "hexCode": "#FF0000",
+      "td": 2.4
+    },
+    {
+      "manufacturer": "3D Jake",
+      "type": "ecoPLA",
+      "color": "Blue",
+      "hexCode": "#0000FF",
+      "td": 2.7
+    },
+    {
+      "manufacturer": "3D Jake",
+      "type": "ecoPLA",
+      "color": "Green",
+      "hexCode": "#00FF00",
+      "td": 3.2
+    },
+    {
+      "manufacturer": "3D Jake",
+      "type": "ecoPLA",
+      "color": "Yellow",
+      "hexCode": "#FFFF00",
+      "td": 7.0
+    },
+    {
+      "manufacturer": "3D Jake",
+      "type": "ecoPLA",
+      "color": "Orange",
+      "hexCode": "#FFA500",
+      "td": 5.3
+    },
+    {
+      "manufacturer": "Spectrum",
+      "type": "PLA",
+      "color": "Deep Black",
+      "hexCode": "#000000",
+      "td": 0.4
+    },
+    {
+      "manufacturer": "Spectrum",
+      "type": "PLA",
+      "color": "Arctic White",
+      "hexCode": "#FFFFFF",
+      "td": 4.6
+    },
+    {
+      "manufacturer": "Spectrum",
+      "type": "PLA",
+      "color": "Lion Orange",
+      "hexCode": "#FFA500",
+      "td": 5.6
+    },
+    {
+      "manufacturer": "Spectrum",
+      "type": "PLA",
+      "color": "Bahama Yellow",
+      "hexCode": "#FFFF00",
+      "td": 7.4
+    },
+    {
+      "manufacturer": "Spectrum",
+      "type": "PLA",
+      "color": "Bloody Red",
+      "hexCode": "#CC0000",
+      "td": 2.5
+    },
+    {
+      "manufacturer": "Spectrum",
+      "type": "PLA",
+      "color": "Smurf Blue",
+      "hexCode": "#0066FF",
+      "td": 3.0
+    },
+    {
+      "manufacturer": "Spectrum",
+      "type": "PLA",
+      "color": "Forest Green",
+      "hexCode": "#228B22",
+      "td": 3.3
+    },
+    {
+      "manufacturer": "Prusa Research",
+      "type": "Woodfill",
+      "color": "Linden Light",
+      "hexCode": "#FFFFCC",
+      "td": 2.4
+    }
+  ],
+  "metadata": {
+    "version": "2.0",
+    "lastUpdated": "2024-12-30",
+    "source": "Based on official manufacturer data from Prusa Knowledge Base and community measurements",
+    "tdDescription": "TD (Transmission Distance) values indicate light transmission through filament. Range: 0.1 (opaque) to 100 (clear transparent)",
+    "totalFilaments": 154,
+    "manufacturers": [
+      "Prusament",
+      "Bambu Lab",
+      "PolyLite",
+      "PolyTerra",
+      "Polymaker",
+      "SUNLU",
+      "eSUN",
+      "Overture",
+      "Fillamentum",
+      "IIID Max",
+      "Paramount 3D",
+      "Proto-pasta",
+      "ColorFabb",
+      "Hatchbox",
+      "3D Jake",
+      "Spectrum",
+      "Prusa Research"
+    ],
+    "notes": "HueForge compatible format. TD values measured at standard conditions. Some variations may occur based on print settings and batch."
+  }
+}
