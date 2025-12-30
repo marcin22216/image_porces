@@ -56,6 +56,13 @@ Run server:
 or
 `uvicorn src.web.server:app --host 0.0.0.0 --port 8000`
 
+## WEB / UI quick start
+1) Start the server:
+   `python3 -m src.web.server`
+2) Open:
+   `http://127.0.0.1:8000/ui`
+3) Upload an image, set `n_colors` and `blend_depth` if needed, then click Generate preview.
+
 Preview:
 `curl -F "file=@examples/input.png" -F "catalog=data/filament_catalog_filamentcolors.json" http://127.0.0.1:8000/preview --output preview.png`
 

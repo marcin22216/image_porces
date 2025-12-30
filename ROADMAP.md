@@ -10,7 +10,7 @@
 - [x] 08 Mesh generation
 - [x] 09 STL export
 - [x] 10 CLI pipeline
-- [ ] 11 GUI skeleton
+- [x] 11 GUI skeleton
 - [x] 12 Translucency preview
 
 # Extended roadmap items

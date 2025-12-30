@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image-to-3D Preview</title>
+    <style>
+      :root {
+        --ink: #1d1c1a;
+        --paper: #f7f3ea;
+        --accent: #e96f3c;
+        --accent-2: #2f7f6f;
+        --shadow: rgba(22, 18, 12, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        color: var(--ink);
+        background: radial-gradient(circle at top left, #ffe6c9 0%, transparent 55%),
+          linear-gradient(135deg, #fdf6ee 0%, #f5efe4 55%, #e5d9cb 100%);
+      }
+
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 48px 20px 64px;
+      }
+
+      header {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 28px;
+        animation: rise 0.6s ease-out;
+      }
+
+      h1 {
+        font-size: 32px;
+        margin: 0;
+        letter-spacing: 0.5px;
+      }
+
+      p {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(29, 28, 26, 0.08);
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 20px 45px var(--shadow);
+        backdrop-filter: blur(6px);
+      }
+
+      label {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      input[type="file"],
+      input[type="number"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(29, 28, 26, 0.2);
+        background: #fff;
+        font-size: 15px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .actions {
+        margin-top: 12px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      button {
+        border: none;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-weight: 700;
+        font-size: 15px;
+        background: linear-gradient(135deg, var(--accent) 0%, #fca06f 100%);
+        color: #fff;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 22px rgba(233, 111, 60, 0.35);
+      }
+
+      .hint {
+        font-size: 13px;
+        color: rgba(29, 28, 26, 0.65);
+      }
+
+      .status {
+        min-height: 22px;
+        font-size: 14px;
+        color: var(--accent-2);
+      }
+
+      .status.error {
+        color: #b6422b;
+      }
+
+      .preview {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      #previewImage {
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid rgba(29, 28, 26, 0.12);
+        display: none;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @media (max-width: 640px) {
+        h1 {
+          font-size: 26px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Image-to-3D Preview</h1>
+        <p>Thin UI wrapper for the CLI preview pipeline. Upload an image, tune two knobs, and see the preview.</p>
+      </header>
+
+      <div class="grid">
+        <section class="card">
+          <form id="previewForm">
+            <div class="field">
+              <label for="imageFile">Image file</label>
+              <input id="imageFile" name="file" type="file" accept="image/*" required />
+            </div>
+
+            <div class="field" style="margin-top: 14px;">
+              <label for="nColors">n_colors (optional)</label>
+              <input id="nColors" name="n_colors" type="number" min="1" step="1" placeholder="e.g. 4" />
+            </div>
+
+            <div class="field" style="margin-top: 14px;">
+              <label for="blendDepth">blend_depth (optional)</label>
+              <input id="blendDepth" name="blend_depth" type="number" min="0" step="0.1" placeholder="e.g. 1.2" />
+            </div>
+
+            <div class="actions">
+              <button type="submit">Generate preview</button>
+              <span class="hint">Calls POST /preview</span>
+            </div>
+          </form>
+        </section>
+
+        <section class="card preview">
+          <div id="status" class="status"></div>
+          <img id="previewImage" alt="Preview output" />
+        </section>
+      </div>
+
+      <p class="hint" style="margin-top: 18px;">
+        The CLI remains the source of truth. This UI only wraps the existing /preview endpoint.
+      </p>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

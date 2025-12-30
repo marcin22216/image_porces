@@ -209,3 +209,7 @@ Tests: not run (not required)
 ## Extended — FastAPI web wrapper deps fix
 Status: DONE
 Tests: python3 -m pytest -q → PASS
+
+## Iteration 11 — Web UI thin wrapper
+Status: DONE
+Tests: PYTHONPATH=. python3 -m pytest -q → PASS

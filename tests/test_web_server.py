@@ -31,6 +31,19 @@ def test_health():
     assert response.json() == {"status": "ok"}
 
 
+def test_ui_html():
+    client = TestClient(app)
+    response = client.get("/ui")
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+
+
+def test_static_app_js():
+    client = TestClient(app)
+    response = client.get("/static/app.js")
+    assert response.status_code == 200
+
+
 def test_preview_endpoint(tmp_path):
     client = TestClient(app)
     catalog = _write_catalog(tmp_path)

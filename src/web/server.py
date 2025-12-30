@@ -6,7 +6,8 @@ from pathlib import Path
 from typing import Optional
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.responses import Response
+from fastapi.responses import HTMLResponse, Response
+from fastapi.staticfiles import StaticFiles
 
 from src.app.bundle_runner import run_bundle
 from src.app.cli_overrides import parse_id_list, validate_overrides
@@ -15,11 +16,19 @@ from src.app.preview_runner import run_preview
 FILE_SIZE_LIMIT = 20 * 1024 * 1024
 
 app = FastAPI(title="Image-to-3D CLI wrapper")
+STATIC_DIR = Path(__file__).resolve().parent / "static"
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}
+
+
+@app.get("/ui", response_class=HTMLResponse)
+def ui() -> HTMLResponse:
+    index_path = STATIC_DIR / "index.html"
+    return HTMLResponse(index_path.read_text(encoding="utf-8"))
 
 
 @app.post("/preview")
