@@ -446,3 +446,9 @@ Status: DONE
 Tests: python3 -m pytest -q → PASS
 
 Migration: moved region_recipe solver into hueforge/solver, replaced src/solver/region_recipe with a shim, updated hueforge shadow pipeline to use hueforge solver, and added equivalence test.
+
+## Iteration 38 — Migrate color distance utilities to hueforge
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved src/color/color_distance.py to hueforge/utils/color_distance.py, updated filament_assignment imports, and replaced src/color/color_distance with a shim; added equivalence tests.
