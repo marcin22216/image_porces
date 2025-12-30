@@ -72,6 +72,25 @@ def main():
     bundle_parser.add_argument("--width-mm", dest="width_mm", type=float)
     bundle_parser.add_argument("--height-mm", dest="height_mm", type=float)
 
+    hueforge_bundle_parser = subparsers.add_parser(
+        "hueforge-bundle", help="Create ZIP bundle using hueforge pipeline"
+    )
+    hueforge_bundle_parser.add_argument("--in", dest="input_path", required=True)
+    hueforge_bundle_parser.add_argument("--out", dest="output_zip", required=True)
+    hueforge_bundle_parser.add_argument("--debug", dest="debug_dir")
+    hueforge_bundle_parser.add_argument("--preset", dest="preset_path")
+    hueforge_bundle_parser.add_argument("--allowed-filaments", dest="allowed_filaments")
+    hueforge_bundle_parser.add_argument("--catalog", dest="catalog")
+    hueforge_bundle_parser.add_argument("--n-colors", dest="n_colors", type=int)
+    hueforge_bundle_parser.add_argument("--base-filament-id", dest="base_filament_id")
+    hueforge_bundle_parser.add_argument(
+        "--sequence-mode", dest="sequence_mode", choices=["manual", "auto_palette"]
+    )
+    hueforge_bundle_parser.add_argument("--layer-sequence-ids", dest="layer_sequence_ids")
+    hueforge_bundle_parser.add_argument("--blend-depth", dest="blend_depth", type=float)
+    hueforge_bundle_parser.add_argument("--width-mm", dest="width_mm", type=float)
+    hueforge_bundle_parser.add_argument("--height-mm", dest="height_mm", type=float)
+
     args = parser.parse_args()
     try:
         if args.version:
@@ -97,6 +116,9 @@ def main():
             return
         if args.command == "bundle":
             _bundle_command(args)
+            return
+        if args.command == "hueforge-bundle":
+            _hueforge_bundle_command(args)
             return
         parser.print_help()
     except CliError as exc:
@@ -288,6 +310,57 @@ def _bundle_command(args: argparse.Namespace) -> None:
 
     try:
         files = run_bundle(
+            args.input_path,
+            args.output_zip,
+            debug_dir=args.debug_dir,
+            preset_path=args.preset_path,
+            allowed_filaments=allowed_filaments,
+            overrides=overrides,
+        )
+    except ValueError as exc:
+        raise CliError(str(exc))
+
+    print(f"Bundle: {args.output_zip}")
+    print("Files:")
+    for name in files:
+        print(f"- {name}")
+
+
+def _hueforge_bundle_command(args: argparse.Namespace) -> None:
+    from hueforge.core.bundle_runner import run_bundle_hueforge
+    from .cli_overrides import apply_overrides, build_overrides, load_preset, parse_id_list, validate_overrides
+
+    input_path = Path(args.input_path)
+    if not input_path.exists():
+        raise CliError(f"Input not found: {args.input_path}")
+    if input_path.is_dir():
+        raise CliError(f"Input is a directory, expected an image file: {args.input_path}")
+
+    allowed_filaments = parse_id_list(args.allowed_filaments)
+    overrides = build_overrides(args)
+    try:
+        validate_overrides(overrides)
+    except ValueError as exc:
+        raise CliError(str(exc))
+
+    preset = apply_overrides(load_preset(args.preset_path), overrides)
+    catalog_path = Path(
+        preset.get("print", {}).get("filament_catalog", "filaments/default_catalog.json")
+    )
+    if not catalog_path.exists():
+        raise CliError(
+            f"Catalog not found: {catalog_path}",
+            "Hint: run filamentcolors_sync to create data/filament_catalog_filamentcolors.json",
+        )
+    if allowed_filaments:
+        missing = _find_missing_allowed(catalog_path, allowed_filaments)
+        if missing:
+            raise CliError(
+                "allowed-filaments not in catalog: " + ", ".join(missing[:5])
+            )
+
+    try:
+        files = run_bundle_hueforge(
             args.input_path,
             args.output_zip,
             debug_dir=args.debug_dir,

@@ -11,7 +11,7 @@ Further work will be tracked as separate phases.
 - [x] Scaffold hueforge/ package layout with minimal shims
 - [x] Migrate preprocessing modules (scale, preprocess, segment, merge)
 - [ ] Migrate palette + gamut + mapping modules
-- [ ] Migrate geometry + export modules (multi-STL, metadata)
+- [x] Migrate geometry + export modules (multi-STL, metadata)
 - [ ] Update tests to new package layout
 - [ ] Deprecate legacy src/ modules (no deletions without approval)
 

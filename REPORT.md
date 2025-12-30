@@ -392,3 +392,39 @@ Status: DONE
 Tests: python3 -m pytest -q → PASS
 
 Migration: moved height_map, layers_to_mm, and add_border into hueforge/geometry and replaced legacy src/ops modules with shims; added equivalence tests.
+
+## Iteration 29 — Migrate TD preview core to hueforge/physics
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved td_preview simulate_stack into hueforge/physics and replaced src/sim/td_preview with a shim; added equivalence test.
+
+## Iteration 30 — Migrate mesh generation to hueforge/geometry
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved mesh_generation into hueforge/geometry, replaced src/geom/mesh_generation with a shim, and redirected hueforge/geometry/mesh.py to the new module; added equivalence test.
+
+## Iteration 31 — Migrate colorplan export to hueforge/export
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved colorplan export into hueforge/export, replaced src/print/colorplan_export with a shim, and redirected hueforge/export/colorplan.py to the new module; added equivalence test.
+
+## Iteration 32 — Hueforge shadow pipeline + hueforge-bundle CLI
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Shadow path: added hueforge/core pipeline + bundle runner and new hueforge-bundle CLI command; added smoke test for zip output via hueforge path (uses width/height overrides to keep runtime short).
+
+## Iteration 33 — Speed up hueforge-bundle smoke test
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Tests: added tiny PNG fixture for hueforge-bundle smoke test to reduce runtime; pix1.png remains unchanged.
+
+## Iteration 34 — Migrate palette suggestion to hueforge/palette
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Migration: moved suggest_palette into hueforge/palette, replaced src/ops/palette_suggestion with a shim, and updated hueforge shadow pipeline to use the hueforge implementation; added equivalence test.
