@@ -1155,3 +1155,98 @@ Diagnostics (by_index_two_regions.png, 64x64, preset defaults):
 - height_mm min/max: 0.0 / 0.800000011920929
 
 Conclusion: tiny.png produces a single merged label (all segments below min_area), so it is not a valid by_index regression fixture. Updated the non-regression test to use a deterministic two-region fixture and to assert non-zero height map + non-flat STL.
+
+## Iteration 48 — Optical HueForge reference bundle
+Status: DONE
+Tests: python3 -m src.app.main doctor → OK; python3 -m pytest -q → PASS
+
+Input selection:
+- pix1.png dostępny, ale optical_hueforge uruchamia solver per-pixel (768x768) i grozi długim runem oraz dużym outputem; użyto tests/fixtures/by_index_two_regions.png jako minimalnego obrazu do weryfikacji reliefu.
+
+Command:
+`python3 -m src.app.main hueforge-bundle --in tests/fixtures/by_index_two_regions.png --out artifacts/optical_hueforge_reference.zip --preset artifacts/optical_hueforge_reference_config.json`
+
+Config used (artifacts/optical_hueforge_reference_config.json):
+```json
+{
+  "preprocess": {
+    "mode": "bilateral",
+    "radius": 2,
+    "sigma_space": 2.0,
+    "sigma_color": 25.0
+  },
+  "canvas": {
+    "target_width_mm": 60.0,
+    "target_height_mm": 60.0
+  },
+  "segment": {
+    "method": "slic",
+    "n_segments": 100,
+    "compactness": 10.0,
+    "max_iter": 5
+  },
+  "merge": {
+    "min_area": 20
+  },
+  "palette": {
+    "colors": [
+      [0, 0, 0],
+      [255, 255, 255]
+    ]
+  },
+  "height_map": {
+    "mode": "optical_hueforge"
+  },
+  "optical": {
+    "stack_filament_ids": ["base", "black"],
+    "stack_thresholds_mm": [0.36, 0.72],
+    "metric": "rgb",
+    "color_space": "linear_srgb",
+    "step_mm": 0.02
+  },
+  "mesh": {},
+  "print": {
+    "border_mm": 0.0,
+    "base_height_mm": 0.0,
+    "base_layer_mm": 0.0,
+    "color_layer_mm": 0.08,
+    "blend_depth": 1.0,
+    "max_thickness_mm": 0.72,
+    "filament_catalog": "filaments/default_catalog.json",
+    "base_filament_id": "base",
+    "sequence_mode": "auto_palette",
+    "layer_sequence_ids": []
+  }
+}
+```
+
+Artifacts (unpacked):
+- STL: artifacts/optical_hueforge_reference/optical_hueforge_reference.stl
+- Preview: artifacts/optical_hueforge_reference/preview.png
+- Colorplan: artifacts/optical_hueforge_reference/optical_hueforge_reference.colorplan.txt
+- config.effective: artifacts/optical_hueforge_reference/config.effective.json
+- Other: artifacts/optical_hueforge_reference/palette_suggested.json, artifacts/optical_hueforge_reference/palette_assigned.json, artifacts/optical_hueforge_reference/layer_plan.json
+- Intermediate maps: none (bundle output only)
+
+Sizes:
+- Folder: 2,193,656 bytes (du -sh: 2.1M)
+- STL: 2,191,180 bytes (ls -lh: 2.1M)
+- ZIP: 122,960 bytes (ls -lh: 120K)
+
+STL metrics:
+- minZ 0.000000, maxZ 0.720000, z_range 0.720000
+- TOTAL_LAYERS 10
+
+Colorplan (first 40 lines; file has 8 lines total):
+```
+COLORPLAN v1
+UNITS mm
+LAYER_INDEXING zero_based
+BASE_LAYER_MM 0.000000
+COLOR_LAYER_MM 0.080000
+TOTAL_LAYERS 10
+START 0 0.000000 base
+CHANGE 5 0.400000 black
+```
+
+Relief assessment (based on preview): preview jest niemal jednolicie ciemny; relief w geometrii STL nie jest wyraźnie rozpoznawalny.
