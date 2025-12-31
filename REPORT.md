@@ -1276,3 +1276,21 @@ Gradient STL metrics (from hueforge-bundle run):
 - minZ 0.000000, maxZ 1.980000, z_range 1.980000
 
 Conclusion: heightfield jest ciągły (więcej niż 10 poziomów Z); nie wykryto kwantyzacji geometrii do progów/warstw.
+
+## Iteration 50 — HueForge optical_hueforge audit (docs)
+Status: DONE
+Tests: python3 -m src.app.main doctor → OK; python3 -m pytest -q → PASS
+
+Work summary:
+- Added docs/hueforge_spec/USAGE.md (usage contract, configs, fixtures, metrics, risk map).
+- README.md now links to USAGE and includes quick/real run commands.
+
+Top pitfalls (and how to detect):
+1) Binary image + 2-stack -> only two Z levels; detect via unique_z ~ 2.
+2) optical.step_mm too large -> stair-stepped relief; detect via small unique_z and uniform Z deltas.
+3) thresholds do not end at max_thickness_mm -> CLI error or wrong swaps; detect run failure or colorplan mismatch.
+4) Missing filament ids in catalog -> CLI error; detect via filaments CLI before running.
+5) Large inputs (pix1.png) -> long runtime / huge STL; detect via output size and runtime spikes.
+
+Potential risk (no change):
+- Colorplan swap layers use ceil(threshold / color_layer_mm); if thresholds are not aligned to layer height, swap layers can shift relative to user expectation. Detect by comparing expected swap depth to generated layer indices in the colorplan.

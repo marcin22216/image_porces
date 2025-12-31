@@ -37,10 +37,18 @@ Migration note: legacy CLI remains the entry point while the HueForge-style layo
 - `docs/MIGRATION.md` — mapping from legacy `src/` to target `hueforge/`.
 - `docs/legacy/STRUKTURA.md` — legacy tree snapshot.
 - `docs/hueforge_spec/` — confirmed HueForge-like contract and optical solver notes.
+- `docs/hueforge_spec/USAGE.md` — optical_hueforge usage contract (configs, fixtures, metrics).
 
 Optical heightfield mode (HueForge-like): set `height_map.mode="optical_hueforge"` with
 `optical.*` config and `print.max_thickness_mm`, then run via `--preset`.
-See `docs/hueforge_spec/README.md` for the required fields and a minimal config example.
+See `docs/hueforge_spec/USAGE.md` for required fields, configs, fixtures, and metrics.
+
+Quick sanity (gradient):
+`python3 -m src.app.main hueforge-bundle --in tests/fixtures/gradient_64.png --out artifacts/optical_gradient.zip --preset /path/to/optical.json`
+
+Real run (pix1, heavy):
+`python3 -m src.app.main hueforge-bundle --in pix1.png --out artifacts/optical_pix1.zip --preset /path/to/optical.json`
+(expect long runtime and large STL/ZIP output)
 
 ## Quick start (5 minutes)
 Installation:
