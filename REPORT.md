@@ -1250,3 +1250,29 @@ CHANGE 5 0.400000 black
 ```
 
 Relief assessment (based on preview): preview jest niemal jednolicie ciemny; relief w geometrii STL nie jest wyraźnie rozpoznawalny.
+
+## Iteration 49 — Optical continuous heightfield (gradient fixture)
+Status: DONE
+Tests: python3 -m src.app.main doctor → OK; python3 -m pytest -q → PASS
+
+Fixture:
+- Added tests/fixtures/gradient_64.png (64x64 horizontal grayscale gradient).
+
+Test: tests/test_optical_hueforge_continuous_heightfield.py
+
+Config (test preset):
+- canvas: 60x60mm
+- height_map.mode: optical_hueforge
+- print.max_thickness_mm: 2.0
+- print.color_layer_mm: 0.08
+- optical.stack_filament_ids: ["black"]
+- optical.stack_thresholds_mm: [2.0]
+- optical.step_mm: 0.02
+- optical.metric: rgb
+- optical.color_space: linear_srgb
+
+Gradient STL metrics (from hueforge-bundle run):
+- unique_z count: 29
+- minZ 0.000000, maxZ 1.980000, z_range 1.980000
+
+Conclusion: heightfield jest ciągły (więcej niż 10 poziomów Z); nie wykryto kwantyzacji geometrii do progów/warstw.

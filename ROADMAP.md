@@ -59,3 +59,4 @@ Further work will be tracked as separate phases.
 - [x] Makefile quick commands
 - [x] UI copy & status panel
 - [x] Manual UI test scenarios
+- [x] Optical heightfield continuous heightfield test (gradient fixture)
