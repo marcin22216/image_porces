@@ -22,6 +22,8 @@ def generate_height_map(labels: np.ndarray, **params) -> np.ndarray:
             raise ValueError("optical_hueforge requires max_thickness_mm")
         stack_ids = optical.get("stack_filament_ids")
         thresholds = optical.get("stack_thresholds_mm")
+        if not stack_ids or not thresholds:
+            raise ValueError("optical_hueforge requires optical.*")
         metric = optical.get("metric", "lab")
         color_space = optical.get("color_space", "linear_srgb")
         step_mm = float(optical.get("step_mm", 0.01))

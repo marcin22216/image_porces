@@ -1126,3 +1126,32 @@ Smoke run (tests/fixtures/tiny.png, optical stack base/black/blue, thresholds 0.
 - TOTAL_LAYERS: 10
 
 Docs moved under docs/hueforge_spec/ with a short README and references in README.md.
+
+## Iteration 46 — Regression guards + optical config fail-fast (incomplete)
+Status: FAILED (non-regression test failed)
+Tests: python3 -m src.app.main doctor → OK; python3 -m pytest -q → FAIL
+
+Failure:
+- tests/test_height_map_non_regression_by_index.py: z_range == 0.0 (flat STL) for by_index on tiny.png.
+
+Regression guarantees:
+- optical_hueforge activates only when height_map.mode="optical_hueforge".
+- no fallback to other modes for optical_hueforge (fail-fast required, but non-regression test failed; artifacts not generated).
+
+Changed files (full paths):
+- hueforge/geometry/height_map.py
+- tests/test_height_map_non_regression_by_index.py
+- tests/test_optical_hueforge_requires_optical_config.py
+
+Next action: investigate by_index producing flat STL on tiny.png before generating reference artifacts.
+
+## Iteration 47 — By_index diagnostics + fixture correction
+Status: DONE
+Tests: python3 -m src.app.main doctor → OK; python3 -m pytest -q → PASS
+
+Diagnostics (by_index_two_regions.png, 64x64, preset defaults):
+- merged_labels unique: 120
+- height_layers unique: 5
+- height_mm min/max: 0.0 / 0.800000011920929
+
+Conclusion: tiny.png produces a single merged label (all segments below min_area), so it is not a valid by_index regression fixture. Updated the non-regression test to use a deterministic two-region fixture and to assert non-zero height map + non-flat STL.
