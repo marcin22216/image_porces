@@ -55,7 +55,9 @@ Why binary/stepped output happens:
 
 ## Recommended config (4-stack)
 Example using the bundled HueForge library (ids are generated from
-manufacturer/type/color in hueforge_filament_library.json):
+manufacturer/type/color in hueforge_filament_library.json). Default
+hueforge-bundle uses filaments/default_catalog.json (3 filaments), so
+for a 4-stack you must point print.filament_catalog to a richer catalog.
 ```json
 {
   "canvas": {
@@ -72,13 +74,13 @@ manufacturer/type/color in hueforge_filament_library.json):
       "prusament_pla_azure_blue",
       "prusament_pla_blend_ms_pink"
     ],
-    "stack_thresholds_mm": [0.56, 1.12, 1.68, 2.24],
+    "stack_thresholds_mm": [0.5, 1.0, 1.5, 2.0],
     "metric": "rgb",
     "color_space": "linear_srgb",
     "step_mm": 0.02
   },
   "print": {
-    "max_thickness_mm": 2.24,
+    "max_thickness_mm": 2.0,
     "color_layer_mm": 0.08,
     "filament_catalog": "hueforge_filament_library.json",
     "base_layer_mm": 0.0,
@@ -90,6 +92,10 @@ Notes:
 - Replace stack ids if your catalog differs. Use
   `python3 -m src.app.main filaments --catalog hueforge_filament_library.json --limit 10`
   to verify ids.
+- The sanity preset explicitly sets print.filament_catalog to
+  hueforge_filament_library.json, so the command below works as-is.
+- If you use another catalog, set print.filament_catalog and update stack ids
+  to match that catalog.
 - stack_thresholds_mm must end at max_thickness_mm; thresholds define swap
   depths only (not geometry quantization).
 
@@ -123,7 +129,7 @@ Notes:
 
 ## Diagnostics (quick recipes)
 Run bundle (optical_hueforge):
-`python3 -m src.app.main hueforge-bundle --in tests/fixtures/gradient_64.png --out artifacts/optical_gradient.zip --preset /path/to/optical.json`
+`python3 -m src.app.main hueforge-bundle --in tests/fixtures/gradient_64.png --out artifacts/optical_hueforge_sanity.zip --preset docs/hueforge_spec/presets/optical_hueforge_sanity.json`
 
 STL bounds and triangle count:
 `python3 -m src.tools.stl_diagnostics --stl path/to/output.stl`

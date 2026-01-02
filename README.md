@@ -44,7 +44,7 @@ Optical heightfield mode (HueForge-like): set `height_map.mode="optical_hueforge
 See `docs/hueforge_spec/USAGE.md` for required fields, configs, fixtures, and metrics.
 
 Quick sanity (gradient):
-`python3 -m src.app.main hueforge-bundle --in tests/fixtures/gradient_64.png --out artifacts/optical_gradient.zip --preset /path/to/optical.json`
+`python3 -m src.app.main hueforge-bundle --in tests/fixtures/gradient_64.png --out artifacts/optical_hueforge_sanity.zip --preset docs/hueforge_spec/presets/optical_hueforge_sanity.json`
 
 Real run (pix1, heavy):
 `python3 -m src.app.main hueforge-bundle --in pix1.png --out artifacts/optical_pix1.zip --preset /path/to/optical.json`

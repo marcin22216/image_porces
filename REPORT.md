@@ -1294,3 +1294,55 @@ Top pitfalls (and how to detect):
 
 Potential risk (no change):
 - Colorplan swap layers use ceil(threshold / color_layer_mm); if thresholds are not aligned to layer height, swap layers can shift relative to user expectation. Detect by comparing expected swap depth to generated layer indices in the colorplan.
+
+## Iteration 51 — Optical_hueforge 4-stack alignment + sanity preset
+Status: DONE
+Tests: python3 -m src.app.main doctor → OK; python3 -m pytest -q → PASS
+
+Source-of-truth catalog:
+- Default hueforge-bundle catalog is filaments/default_catalog.json (3 filaments).
+
+4-stack selection (from hueforge_filament_library.json due to 4-color requirement):
+- prusament_pla_blend_my_silverness (light/base), prusament_pla_jet_black (dark anchor),
+  prusament_pla_azure_blue (cool), prusament_pla_blend_ms_pink (warm); all have td values.
+
+Docs/preset:
+- Updated docs/hueforge_spec/USAGE.md with real 4-stack ids and aligned thresholds/max_thickness.
+- Added docs/hueforge_spec/presets/optical_hueforge_sanity.json for gradient sanity runs.
+
+## Iteration 52 — Docs truth pass (hueforge-bundle)
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+hueforge-bundle --help:
+```
+usage: main.py hueforge-bundle [-h] --in INPUT_PATH --out OUTPUT_ZIP
+                               [--debug DEBUG_DIR] [--preset PRESET_PATH]
+                               [--allowed-filaments ALLOWED_FILAMENTS]
+                               [--catalog CATALOG] [--n-colors N_COLORS]
+                               [--base-filament-id BASE_FILAMENT_ID]
+                               [--sequence-mode {manual,auto_palette}]
+                               [--layer-sequence-ids LAYER_SEQUENCE_IDS]
+                               [--blend-depth BLEND_DEPTH]
+                               [--width-mm WIDTH_MM] [--height-mm HEIGHT_MM]
+
+options:
+  -h, --help            show this help message and exit
+  --in INPUT_PATH
+  --out OUTPUT_ZIP
+  --debug DEBUG_DIR
+  --preset PRESET_PATH
+  --allowed-filaments ALLOWED_FILAMENTS
+  --catalog CATALOG
+  --n-colors N_COLORS
+  --base-filament-id BASE_FILAMENT_ID
+  --sequence-mode {manual,auto_palette}
+  --layer-sequence-ids LAYER_SEQUENCE_IDS
+  --blend-depth BLEND_DEPTH
+  --width-mm WIDTH_MM
+  --height-mm HEIGHT_MM
+```
+
+CLI flags: --in --out --debug --preset --allowed-filaments --catalog --n-colors --base-filament-id --sequence-mode {manual,auto_palette} --layer-sequence-ids --blend-depth --width-mm --height-mm.
+Catalog source: default is filaments/default_catalog.json in src/app/main.py::_hueforge_bundle_command (uses preset print.filament_catalog if present); override via preset print.filament_catalog or CLI --catalog (src/app/cli_overrides.build_overrides).
+Copy-paste sanity command verified: NO (not executed to avoid generating artifacts; command matches current CLI and preset paths).
