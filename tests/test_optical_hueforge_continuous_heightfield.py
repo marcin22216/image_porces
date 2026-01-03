@@ -1,8 +1,11 @@
 import json
+import struct
 import subprocess
 import sys
 import zipfile
 from pathlib import Path
+
+from src.tools.stl_diagnostics import analyze_stl
 
 
 def _write_preset(path: Path, preset: dict) -> None:
@@ -39,6 +42,9 @@ def _read_stl_from_zip(zip_path: Path) -> Path:
 
 
 def _collect_vertex_z(stl_path: Path) -> list[float]:
+    metrics = analyze_stl(stl_path)
+    if metrics["format"] == "binary":
+        return _collect_vertex_z_binary(stl_path)
     values: list[float] = []
     with stl_path.open("r", encoding="utf-8", errors="ignore") as handle:
         for line in handle:
@@ -54,6 +60,25 @@ def _collect_vertex_z(stl_path: Path) -> list[float]:
                 continue
     if not values:
         raise AssertionError("no vertices found in STL")
+    return values
+
+
+def _collect_vertex_z_binary(stl_path: Path) -> list[float]:
+    values: list[float] = []
+    with stl_path.open("rb") as handle:
+        handle.seek(80)
+        count_bytes = handle.read(4)
+        if len(count_bytes) != 4:
+            raise AssertionError("binary STL header is incomplete")
+        tri_count = struct.unpack("<I", count_bytes)[0]
+        for _ in range(tri_count):
+            data = handle.read(50)
+            if len(data) != 50:
+                raise AssertionError("binary STL ended unexpectedly")
+            unpacked = struct.unpack("<12fH", data)
+            values.extend([unpacked[5], unpacked[8], unpacked[11]])
+    if not values:
+        raise AssertionError("no vertices found in binary STL")
     return values
 
 

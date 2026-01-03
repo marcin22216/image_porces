@@ -1,0 +1,68 @@
+{
+  "preprocess": {
+    "mode": "bilateral",
+    "radius": 2,
+    "sigma_space": 2.0,
+    "sigma_color": 25.0
+  },
+  "canvas": {
+    "target_width_mm": 100.0,
+    "target_height_mm": 100.0
+  },
+  "segment": {
+    "method": "slic",
+    "n_segments": 100,
+    "compactness": 10.0,
+    "max_iter": 5
+  },
+  "merge": {
+    "min_area": 20
+  },
+  "palette": {
+    "colors": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        255,
+        255,
+        255
+      ]
+    ]
+  },
+  "height_map": {
+    "mode": "optical_hueforge"
+  },
+  "optical": {
+    "stack_filament_ids": [
+      "prusament_pla_blend_my_silverness",
+      "prusament_pla_jet_black",
+      "prusament_pla_azure_blue",
+      "prusament_pla_blend_ms_pink"
+    ],
+    "stack_thresholds_mm": [
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "metric": "rgb",
+    "color_space": "linear_srgb",
+    "step_mm": 0.015
+  },
+  "mesh": {},
+  "print": {
+    "border_mm": 0.0,
+    "base_height_mm": 0.0,
+    "base_layer_mm": 0.0,
+    "color_layer_mm": 0.08,
+    "blend_depth": 1.0,
+    "max_thickness_mm": 2.0,
+    "filament_catalog": "hueforge_filament_library.json",
+    "base_filament_id": "prusament_pla_blend_my_silverness",
+    "sequence_mode": "auto_palette",
+    "layer_sequence_ids": []
+  }
+}

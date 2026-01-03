@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+import struct
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -143,8 +144,9 @@ def run_pipeline(
             color_layer_mm,
         )
     if mode != "preview":
+        stl_format = _resolve_stl_format(preset)
         mesh = height_map_to_mesh(height_map, mm_per_pixel=mm_per_pixel)
-        _write_ascii_stl(mesh, output_path)
+        _write_stl(mesh, output_path, stl_format)
         if height_mode == "optical_hueforge":
             _write_colorplan_optical(
                 output_path,
@@ -175,7 +177,7 @@ def run_pipeline(
                 ).astype(np.float32)
                 layer_mesh = height_map_to_mesh(layer_map, mm_per_pixel=mm_per_pixel)
                 layer_name = f"layer_{layer_index:02d}.stl"
-                _write_ascii_stl(layer_mesh, str(output_dir / layer_name))
+                _write_stl(layer_mesh, str(output_dir / layer_name), stl_format)
                 per_layer.append(
                     {
                         "layer": layer_index,
@@ -357,6 +359,60 @@ def _write_ascii_stl(mesh: Mesh, path: str) -> None:
 
     with open(path, "w", encoding="utf-8") as handle:
         handle.write("\n".join(lines))
+
+
+def _write_binary_stl(mesh: Mesh, path: str) -> None:
+    vertices = mesh.vertices
+    faces = mesh.faces
+    header = b"hueforge binary stl"
+    header = header.ljust(80, b" ")
+    with open(path, "wb") as handle:
+        handle.write(header[:80])
+        handle.write(struct.pack("<I", len(faces)))
+        for face in faces:
+            v0, v1, v2 = vertices[face]
+            normal = np.cross(v1 - v0, v2 - v0)
+            norm = np.linalg.norm(normal)
+            if norm == 0:
+                normal = np.array([0.0, 0.0, 0.0], dtype=np.float32)
+            else:
+                normal = normal / norm
+            handle.write(
+                struct.pack(
+                    "<12fH",
+                    float(normal[0]),
+                    float(normal[1]),
+                    float(normal[2]),
+                    float(v0[0]),
+                    float(v0[1]),
+                    float(v0[2]),
+                    float(v1[0]),
+                    float(v1[1]),
+                    float(v1[2]),
+                    float(v2[0]),
+                    float(v2[1]),
+                    float(v2[2]),
+                    0,
+                )
+            )
+
+
+def _write_stl(mesh: Mesh, path: str, stl_format: str) -> None:
+    if stl_format == "ascii":
+        _write_ascii_stl(mesh, path)
+        return
+    if stl_format == "binary":
+        _write_binary_stl(mesh, path)
+        return
+    raise ValueError("mesh.stl_format must be 'binary' or 'ascii'")
+
+
+def _resolve_stl_format(preset: Dict[str, Any]) -> str:
+    mesh_config = preset.get("mesh") or {}
+    stl_format = str(mesh_config.get("stl_format", "binary")).strip().lower()
+    if stl_format not in {"binary", "ascii"}:
+        raise ValueError("mesh.stl_format must be 'binary' or 'ascii'")
+    return stl_format
 
 
 def _write_colorplan(

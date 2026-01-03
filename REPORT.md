@@ -1401,3 +1401,15 @@ CHANGE 19 1.520000 prusament_pla_blend_ms_pink
 ```
 
 Assessment: preview shows a clear, recognizable relief of the pix1 scene; geometry spans the full 0–2mm range and has 57 unique Z levels, consistent with a continuous heightfield.
+
+## Iteration 55 — Binary STL default for bundle/hueforge-bundle
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Work summary:
+- Switched STL writer to binary by default (mesh.stl_format supports ascii override).
+- Tests updated to accept binary STL and to assert binary default for hueforge-bundle output.
+
+Size + geometry check (tests/fixtures/tiny.png, 10x1mm):
+- ASCII (mesh.stl_format=ascii): 571,916 bytes, triangles 2,306
+- Binary (default): 115,384 bytes, triangles 2,306
