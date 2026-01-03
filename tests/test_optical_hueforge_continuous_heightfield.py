@@ -99,6 +99,7 @@ def test_optical_hueforge_continuous_heightfield(tmp_path: Path) -> None:
     }
     base_preset["print"]["max_thickness_mm"] = 2.0
     base_preset["print"]["color_layer_mm"] = 0.08
+    base_preset.setdefault("mesh", {})["xy_step_mm"] = 0.5
 
     preset_path = tmp_path / "optical_continuous.json"
     _write_preset(preset_path, base_preset)

@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Tuple
 
+import math
+
 import numpy as np
 
 
@@ -12,12 +14,24 @@ class Mesh:
     faces: np.ndarray
 
 
-def height_map_to_mesh(height_map: np.ndarray, mm_per_pixel: float) -> Mesh:
+def height_map_to_mesh(
+    height_map: np.ndarray, mm_per_pixel: float, xy_step_mm: float | None = None
+) -> Mesh:
     _validate_height_map(height_map)
     if mm_per_pixel <= 0:
         raise ValueError("mm_per_pixel must be > 0")
 
-    heights = height_map.astype(np.float32, copy=False)
+    if xy_step_mm is None:
+        xy_step_mm = mm_per_pixel
+    xy_step_mm = float(xy_step_mm)
+    if xy_step_mm <= 0:
+        raise ValueError("xy_step_mm must be > 0")
+
+    if xy_step_mm != mm_per_pixel:
+        heights = _resample_height_map(height_map, mm_per_pixel, xy_step_mm)
+        mm_per_pixel = xy_step_mm
+    else:
+        heights = height_map.astype(np.float32, copy=False)
     height, width = heights.shape
 
     vertices: List[Tuple[float, float, float]] = []
@@ -104,6 +118,27 @@ def height_map_to_mesh(height_map: np.ndarray, mm_per_pixel: float) -> Mesh:
         vertices=np.asarray(vertices, dtype=np.float32),
         faces=np.asarray(faces, dtype=np.int32),
     )
+
+
+def _resample_height_map(
+    height_map: np.ndarray, mm_per_pixel: float, xy_step_mm: float
+) -> np.ndarray:
+    height, width = height_map.shape
+    physical_width = width * mm_per_pixel
+    physical_height = height * mm_per_pixel
+    out_width = max(1, int(math.ceil(physical_width / xy_step_mm)))
+    out_height = max(1, int(math.ceil(physical_height / xy_step_mm)))
+
+    x_mm = (np.arange(out_width, dtype=np.float32) + 0.5) * xy_step_mm
+    y_mm = (np.arange(out_height, dtype=np.float32) + 0.5) * xy_step_mm
+    x_mm = np.minimum(x_mm, physical_width - 1e-6)
+    y_mm = np.minimum(y_mm, physical_height - 1e-6)
+
+    x_px = x_mm / mm_per_pixel - 0.5
+    y_px = y_mm / mm_per_pixel - 0.5
+    x_idx = np.clip(np.rint(x_px), 0, width - 1).astype(np.int32)
+    y_idx = np.clip(np.rint(y_px), 0, height - 1).astype(np.int32)
+    return height_map[np.ix_(y_idx, x_idx)].astype(np.float32, copy=False)
 
 
 def _validate_height_map(height_map: np.ndarray) -> None:

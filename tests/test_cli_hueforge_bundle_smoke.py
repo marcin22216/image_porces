@@ -37,6 +37,15 @@ def test_cli_hueforge_bundle_smoke(tmp_path: Path) -> None:
 
     assert result.returncode == 0, result.stderr + result.stdout
     assert output_zip.exists()
+    stage_names = [
+        "load_preprocess",
+        "segment_merge",
+        "heightfield",
+        "mesh_generation",
+        "stl_write",
+    ]
+    for stage in stage_names:
+        assert f"STAGE_TIME_SEC stage_name={stage}" in result.stdout
 
     base = output_zip.stem
     with zipfile.ZipFile(output_zip, "r") as archive:

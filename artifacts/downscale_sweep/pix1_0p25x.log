@@ -1,0 +1,15 @@
+GUARDRAIL_INFO input_px=192x192 canvas_mm=200.000x200.000 effective_grid=192x192 expected_triangles=73728
+STAGE_TIME_SEC stage_name=load_preprocess seconds=9.101499
+STAGE_TIME_SEC stage_name=segment_merge seconds=0.217723
+STAGE_TIME_SEC stage_name=heightfield seconds=147.664290
+STAGE_TIME_SEC stage_name=mesh_generation seconds=0.255090
+STAGE_TIME_SEC stage_name=stl_write seconds=6.719735
+Bundle: artifacts/downscale_sweep/pix1_0p25x
+Files:
+- pix1_0p25x.stl
+- pix1_0p25x.colorplan.txt
+- preview.png
+- palette_suggested.json
+- palette_assigned.json
+- layer_plan.json
+- config.effective.json

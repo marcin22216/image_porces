@@ -1420,3 +1420,42 @@ Tests: python3 -m pytest -q → PASS
 
 Note: restored tracked artifacts that were unintentionally changed/deleted.
 Restored files: none (working tree clean; no tracked deletions/modifications found).
+
+## Iteration 57 — Hueforge stage timing + guardrails
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Work summary:
+- Added per-stage timing logs (STAGE_TIME_SEC) and size guardrails for hueforge-bundle/run pipelines.
+- Guardrails report input_px, canvas_mm, effective_grid, expected_triangles; they abort if grid > 2048x2048 or expected_triangles > 2,000,000.
+
+Profiling sample (tests/fixtures/tiny.png, 10x1mm):
+```
+GUARDRAIL_INFO input_px=32x32 canvas_mm=1.000x1.000 effective_grid=32x32 expected_triangles=2048
+STAGE_TIME_SEC stage_name=load_preprocess seconds=0.278200
+STAGE_TIME_SEC stage_name=segment_merge seconds=0.067422
+STAGE_TIME_SEC stage_name=heightfield seconds=0.000316
+STAGE_TIME_SEC stage_name=mesh_generation seconds=0.006887
+STAGE_TIME_SEC stage_name=stl_write seconds=0.156308
+```
+
+Notes:
+- pix1_1x was not re-run; guardrails did not trigger in this iteration.
+- Recommended safe sweep start: downscale to 0.25x (or smaller) and keep canvas fixed.
+
+## Iteration 58 — Mesh XY density parameter (xy_step_mm / detail_size_mm)
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Work summary:
+- Added mesh.xy_step_mm (alias: mesh.detail_size_mm) to control XY mesh density by resampling height_map before mesh generation.
+- Default for CLI pipelines: 0.20 mm (HueForge detail size), preserving solver/heightfield logic.
+
+Small fixture comparison (tests/fixtures/tiny.png, canvas 20x20mm):
+| xy_step_mm | triangles | load_preprocess_s | segment_merge_s | heightfield_s | mesh_s | write_s |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0.20 | 20,802 | 0.265 | 0.062 | 0.000 | 0.060 | 1.311 |
+| 0.10 | 81,602 | 0.260 | 0.061 | 0.000 | 0.210 | 4.985 |
+
+Conclusion:
+- Triangles/runtime scale with xy_step_mm; default 0.20 mm is recommended.

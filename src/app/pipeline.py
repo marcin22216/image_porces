@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import struct
+import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -40,6 +41,8 @@ def run_pipeline(
     if overrides:
         preset = _apply_overrides(preset, overrides)
 
+    stage_start = time.monotonic()
+    xy_step_mm = _resolve_xy_step_mm(preset)
     image_data = load_image(input_path)
     image = _image_to_array(image_data)
     canvas = preset.get("canvas", {})
@@ -48,10 +51,19 @@ def run_pipeline(
         canvas.get("target_width_mm"),
         canvas.get("target_height_mm"),
     )
-
+    _report_guardrails(
+        input_px=(image_data.width, image_data.height),
+        scaled_px=(image.shape[1], image.shape[0]),
+        mm_per_pixel=mm_per_pixel,
+        xy_step_mm=xy_step_mm,
+    )
     preprocessed = process(image, **preset["preprocess"])
+    _log_stage_time("load_preprocess", stage_start)
+
+    stage_start = time.monotonic()
     labels = segment(preprocessed, **preset["segment"])
     merged_labels = merge(labels, preprocessed, **preset["merge"])
+    _log_stage_time("segment_merge", stage_start)
 
     palette_config = dict(preset["palette"])
     palette_colors = palette_config.pop("colors", None)
@@ -81,6 +93,7 @@ def run_pipeline(
     blend_depth = float(print_config.get("blend_depth", 1.0))
     if blend_depth <= 0:
         raise ValueError("blend_depth must be > 0")
+    stage_start = time.monotonic()
     if height_mode == "optical_hueforge":
         max_thickness_mm = print_config.get("max_thickness_mm")
         if max_thickness_mm is None:
@@ -114,6 +127,7 @@ def run_pipeline(
     border_mm = float(print_config.get("border_mm", 0.0))
     base_height_mm = float(print_config.get("base_height_mm", base_layer_mm))
     height_map = add_border(height_map, border_mm, mm_per_pixel, base_height_mm)
+    _log_stage_time("heightfield", stage_start)
     max_layers = int(height_layers.max()) if height_layers.size else 0
     base_filament_id = str(print_config.get("base_filament_id", "white"))
     sequence_mode = str(print_config.get("sequence_mode", "auto_palette"))
@@ -145,8 +159,14 @@ def run_pipeline(
         )
     if mode != "preview":
         stl_format = _resolve_stl_format(preset)
-        mesh = height_map_to_mesh(height_map, mm_per_pixel=mm_per_pixel)
+        stage_start = time.monotonic()
+        mesh = height_map_to_mesh(
+            height_map, mm_per_pixel=mm_per_pixel, xy_step_mm=xy_step_mm
+        )
+        _log_stage_time("mesh_generation", stage_start)
+        stage_start = time.monotonic()
         _write_stl(mesh, output_path, stl_format)
+        _log_stage_time("stl_write", stage_start)
         if height_mode == "optical_hueforge":
             _write_colorplan_optical(
                 output_path,
@@ -175,7 +195,9 @@ def run_pipeline(
                 layer_map = np.where(
                     height_layers >= layer_index, layer_height, 0.0
                 ).astype(np.float32)
-                layer_mesh = height_map_to_mesh(layer_map, mm_per_pixel=mm_per_pixel)
+                layer_mesh = height_map_to_mesh(
+                    layer_map, mm_per_pixel=mm_per_pixel, xy_step_mm=xy_step_mm
+                )
                 layer_name = f"layer_{layer_index:02d}.stl"
                 _write_stl(layer_mesh, str(output_dir / layer_name), stl_format)
                 per_layer.append(
@@ -413,6 +435,58 @@ def _resolve_stl_format(preset: Dict[str, Any]) -> str:
     if stl_format not in {"binary", "ascii"}:
         raise ValueError("mesh.stl_format must be 'binary' or 'ascii'")
     return stl_format
+
+
+def _resolve_xy_step_mm(preset: Dict[str, Any]) -> float:
+    mesh_config = preset.get("mesh") or {}
+    xy_step_mm = mesh_config.get("xy_step_mm")
+    if xy_step_mm is None:
+        xy_step_mm = mesh_config.get("detail_size_mm")
+    if xy_step_mm is None:
+        xy_step_mm = 0.20
+    xy_step_mm = float(xy_step_mm)
+    if xy_step_mm <= 0:
+        raise ValueError("mesh.xy_step_mm must be > 0")
+    return xy_step_mm
+
+
+def _log_stage_time(stage_name: str, started_at: float) -> None:
+    elapsed = time.monotonic() - started_at
+    print(f"STAGE_TIME_SEC stage_name={stage_name} seconds={elapsed:.6f}")
+
+
+def _report_guardrails(
+    *,
+    input_px: tuple[int, int],
+    scaled_px: tuple[int, int],
+    mm_per_pixel: float,
+    xy_step_mm: float,
+) -> None:
+    width_px, height_px = scaled_px
+    width_mm = width_px * mm_per_pixel
+    height_mm = height_px * mm_per_pixel
+    grid_width = max(1, int(math.ceil(width_mm / xy_step_mm)))
+    grid_height = max(1, int(math.ceil(height_mm / xy_step_mm)))
+    expected_triangles = int(grid_width * grid_height * 2)
+    print(
+        "GUARDRAIL_INFO "
+        f"input_px={input_px[0]}x{input_px[1]} "
+        f"canvas_mm={width_mm:.3f}x{height_mm:.3f} "
+        f"effective_grid={grid_width}x{grid_height} "
+        f"expected_triangles={expected_triangles}"
+    )
+    _enforce_guardrails(grid_width, grid_height, expected_triangles)
+
+
+def _enforce_guardrails(width_px: int, height_px: int, expected_triangles: int) -> None:
+    max_dim = 2048
+    max_triangles = 2_000_000
+    if width_px > max_dim or height_px > max_dim or expected_triangles > max_triangles:
+        raise ValueError(
+            "Guardrail: configuration too heavy for this CLI. "
+            f"effective_grid={width_px}x{height_px} expected_triangles={expected_triangles}. "
+            "Consider downscaling the input or reducing canvas size."
+        )
 
 
 def _write_colorplan(

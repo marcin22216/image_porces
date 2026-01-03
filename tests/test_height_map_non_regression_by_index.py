@@ -70,6 +70,7 @@ def test_height_map_by_index_non_regression(tmp_path: Path) -> None:
         (repo_root / "presets" / "default.json").read_text(encoding="utf-8")
     )
     base_preset["height_map"] = {"mode": "by_index", "scale": 0.5}
+    base_preset.setdefault("mesh", {})["xy_step_mm"] = 0.5
 
     preset_path = tmp_path / "by_index.json"
     _write_preset(preset_path, base_preset)
