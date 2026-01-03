@@ -1413,3 +1413,10 @@ Work summary:
 Size + geometry check (tests/fixtures/tiny.png, 10x1mm):
 - ASCII (mesh.stl_format=ascii): 571,916 bytes, triangles 2,306
 - Binary (default): 115,384 bytes, triangles 2,306
+
+## Iteration 56 — Restore tracked artifacts
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Note: restored tracked artifacts that were unintentionally changed/deleted.
+Restored files: none (working tree clean; no tracked deletions/modifications found).
