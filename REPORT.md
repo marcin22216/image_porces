@@ -1346,3 +1346,58 @@ options:
 CLI flags: --in --out --debug --preset --allowed-filaments --catalog --n-colors --base-filament-id --sequence-mode {manual,auto_palette} --layer-sequence-ids --blend-depth --width-mm --height-mm.
 Catalog source: default is filaments/default_catalog.json in src/app/main.py::_hueforge_bundle_command (uses preset print.filament_catalog if present); override via preset print.filament_catalog or CLI --catalog (src/app/cli_overrides.build_overrides).
 Copy-paste sanity command verified: NO (not executed to avoid generating artifacts; command matches current CLI and preset paths).
+
+## Iteration 53 — macOS .DS_Store cleanup
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Work summary:
+- Removed tracked .DS_Store files from repo (root, artifacts/, assets/, src/, src/app/, src/geom/, src/print/).
+- Added .DS_Store and **/.DS_Store to .gitignore to prevent reappearance.
+
+## Iteration 54 — optical_hueforge pix1 benchmark (200x200mm)
+Status: DONE
+Tests: python3 -m pytest -q → PASS
+
+Command:
+`python3 -m src.app.main hueforge-bundle --preset artifacts/optical_hueforge_pix1_preset.json --in pix1.png --out artifacts/optical_hueforge_pix1`
+
+Preset used:
+- `artifacts/optical_hueforge_pix1_preset.json`
+
+Artifacts:
+- STL: `artifacts/optical_hueforge_pix1/optical_hueforge_pix1.stl`
+- preview: `artifacts/optical_hueforge_pix1/preview.png`
+- colorplan: `artifacts/optical_hueforge_pix1/optical_hueforge_pix1.colorplan.txt`
+- config: `artifacts/optical_hueforge_pix1/config.effective.json`
+- bundle zip: `artifacts/optical_hueforge_pix1.zip`
+
+Quality metrics (from stl-diagnostics + scan):
+- TOTAL_LAYERS: 26
+- minZ: 0.000000
+- maxZ: 2.000000
+- z_range: 2.000000
+- unique_z: 57
+- triangles: 1,351,268
+
+Sizes:
+- Folder: 320M (`artifacts/optical_hueforge_pix1`)
+- STL: 335,239,496 bytes (~320M)
+- ZIP: 10,230,471 bytes (~10M)
+Note: STL size is large but expected for ASCII output at 200x200mm (768x768 source).
+
+colorplan.txt (first lines):
+```
+COLORPLAN v1
+UNITS mm
+LAYER_INDEXING zero_based
+BASE_LAYER_MM 0.000000
+COLOR_LAYER_MM 0.080000
+TOTAL_LAYERS 26
+START 0 0.000000 prusament_pla_blend_my_silverness
+CHANGE 7 0.560000 prusament_pla_jet_black
+CHANGE 13 1.040000 prusament_pla_azure_blue
+CHANGE 19 1.520000 prusament_pla_blend_ms_pink
+```
+
+Assessment: preview shows a clear, recognizable relief of the pix1 scene; geometry spans the full 0–2mm range and has 57 unique Z levels, consistent with a continuous heightfield.
